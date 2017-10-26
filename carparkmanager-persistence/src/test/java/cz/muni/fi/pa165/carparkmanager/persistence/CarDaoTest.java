@@ -87,7 +87,7 @@ public class CarDaoTest {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void updateCarWithWrongProductionYear() {
         carDao.create(car1);
-        car1 = serviceDao.findById(car1.getVin());
+        car1 = carDao.findByVin(car1.getVin());
         car1.setProductionYear(2020);
         carDao.update(car1);
     }
@@ -137,7 +137,7 @@ public class CarDaoTest {
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void deleteNullService() {
+    public void deleteNullCar() {
         carDao.delete(null);
     }
 
