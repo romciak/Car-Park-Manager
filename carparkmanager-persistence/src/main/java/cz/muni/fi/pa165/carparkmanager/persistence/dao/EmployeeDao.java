@@ -34,7 +34,7 @@ public interface EmployeeDao {
      * Method to delete an employee
      * @param employee 
      */    
-    public void delete (Employee employee) throws IllegalArgumentException;
+    public void delete (Employee employee) throws IllegalArgumentException; 
     
     /**
      * Method to find a certain employee
@@ -54,19 +54,19 @@ public interface EmployeeDao {
      * @param firstname
      * @return a list of all Employees with a certain firstname
      */
-    public List<Employee> findByFirstname(String firstname);
+    public List<Employee> findByFirstname(String firstname) throws IllegalArgumentException ;
 
     /**
      * Method to get all employees with a certain surname
      * @param surname
      * @return a list of all Employees with a certain surname
      */
-    public List<Employee> findBySurname(String surname);
+    public List<Employee> findBySurname(String surname) throws IllegalArgumentException ;
 
     /**
      * Method to get all employees with a certain classification
      * @param classification enum value
      * @return a list of all Employees with a certain classification
      */
-    List<Employee> findByClassification(ClassificationOfEmployee classification);
+    List<Employee> findByClassification(ClassificationOfEmployee classification) throws IllegalArgumentException ;
 }

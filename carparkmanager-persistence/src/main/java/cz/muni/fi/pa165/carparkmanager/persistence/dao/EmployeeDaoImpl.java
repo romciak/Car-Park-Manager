@@ -50,11 +50,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public void delete(Employee employee) {
+    public void delete(Employee employee) throws IllegalArgumentException  {
         if (parametersAreOk(employee)){
             em.remove(em.contains(employee) ? employee : em.merge(employee));
         }
-        em.remove(em.contains(employee) ? employee : em.merge(employee));
+        throw new IllegalArgumentException("Trying to delete null");
     }
 
     @Override
@@ -68,7 +68,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> findByFirstname(String firstname) {
+    public List<Employee> findByFirstname(String firstname) throws IllegalArgumentException {
         if (firstname == null) {
             throw new IllegalArgumentException("Cannot search for null firstname");
         }
@@ -79,7 +79,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> findBySurname(String surname) {
+    public List<Employee> findBySurname(String surname) throws IllegalArgumentException {
         if (surname == null) {
             throw new IllegalArgumentException("Cannot search for null surname");
         }
@@ -90,7 +90,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> findByClassification(ClassificationOfEmployee classification) {
+    public List<Employee> findByClassification(ClassificationOfEmployee classification) throws IllegalArgumentException  {
         if (classification == null) {
             throw new IllegalArgumentException("Cannot search for classification login");
         }
