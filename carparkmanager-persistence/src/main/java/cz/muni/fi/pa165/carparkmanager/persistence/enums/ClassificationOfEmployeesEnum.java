@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package enums;
+package cz.muni.fi.pa165.carparkmanager.persistence.enums;
 
 /**
  *
  * @author xbonco1
  */
-public enum ClassificationOfEmployee {
-    MANAGER, ENGINEER, CLEANING_SERVICE, VOLUNTEER
+public class ClassificationOfEmployeesEnum {
+    
 }

@@ -5,7 +5,7 @@
  */
 package cz.muni.fi.pa165.carparkmanager.persistence.entity;
 
-import enums.ClassificationOfEmployee;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
 import java.util.Date;
 import java.util.Objects;
 
@@ -19,8 +19,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name="EMPLOYEE_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @NotNull
@@ -37,13 +36,13 @@ public class Employee {
 
     @NotNull
     @Enumerated
-    private ClassificationOfEmployee classification;    
+    private ClassificationOfEmployeesEnum classification;    
 
     public Employee() {
         
     }
     
-    public Employee(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployee classification) {
+    public Employee(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployeesEnum classification) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
@@ -83,11 +82,11 @@ public class Employee {
         this.birthDate = dateOfBirth;
     }
 
-    public ClassificationOfEmployee getClassification() {
+    public ClassificationOfEmployeesEnum getClassification() {
         return classification;
     }
 
-    public void setClassification(ClassificationOfEmployee classification) {
+    public void setClassification(ClassificationOfEmployeesEnum classification) {
         this.classification = classification;
     }
     

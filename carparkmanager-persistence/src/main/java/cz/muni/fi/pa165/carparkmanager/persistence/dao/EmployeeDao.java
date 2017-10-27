@@ -6,7 +6,7 @@
 package cz.muni.fi.pa165.carparkmanager.persistence.dao;
 
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
-import enums.ClassificationOfEmployee;
+import enums.ClassificationOfEmployeeEnum;
 import java.util.List;
 
 /**
@@ -17,24 +17,22 @@ public interface EmployeeDao {
     /**
      * Method to create an employee
      * @param employee
-     * @return a new Employee
      * @throws IllegalArgumentException 
      */
     
-    public Employee create (Employee employee) throws IllegalArgumentException;
+    public void create (Employee employee);
     
     /**
      * Method to update an employee
      * @param employee
-     * @return updated Employee
      */    
-    public Employee update (Employee employee) throws IllegalArgumentException;
+    public void update (Employee employee);
     
     /**
      * Method to delete an employee
      * @param employee 
      */    
-    public void delete (Employee employee) throws IllegalArgumentException; 
+    public void delete (Employee employee); 
     
     /**
      * Method to find a certain employee
@@ -54,19 +52,19 @@ public interface EmployeeDao {
      * @param firstname
      * @return a list of all Employees with a certain firstname
      */
-    public List<Employee> findByFirstname(String firstname) throws IllegalArgumentException ;
+    public List<Employee> findByFirstname(String firstname);
 
     /**
      * Method to get all employees with a certain surname
      * @param surname
      * @return a list of all Employees with a certain surname
      */
-    public List<Employee> findBySurname(String surname) throws IllegalArgumentException ;
+    public List<Employee> findBySurname(String surname);
 
     /**
      * Method to get all employees with a certain classification
      * @param classification enum value
      * @return a list of all Employees with a certain classification
      */
-    List<Employee> findByClassification(ClassificationOfEmployee classification) throws IllegalArgumentException ;
+    List<Employee> findByClassification(ClassificationOfEmployeeEnum classification);
 }
