@@ -37,7 +37,7 @@ public class CarDaoTest {
     private void init(){        
         car1 = new Car();
         car2 = new Car();
-            
+
         car1.setVin("1");
         car1.setBrand("ISUZU");
         car1.setType("Truck");
@@ -53,10 +53,14 @@ public class CarDaoTest {
         car2.setProductionYear("2016");
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createWithNullTest() {
+        carDao.create(null);
+    }
+
     @Test
     public void updateCarTest(){
         carDao.create(car1);
-
         car1.setKmCount(160000);
         carDao.update(car1);
         Assert.assertEquals(carDao.findById(car1.getId()).getKmCount(), 160000);
@@ -84,7 +88,7 @@ public class CarDaoTest {
         Assert.assertEquals(found, car1);
         assertDeepEquals(found, car1);
     }
-    
+
     @Test
     public void findAllCarsTest(){
         carDao.create(car1);
@@ -94,7 +98,7 @@ public class CarDaoTest {
         assertDeepEquals(cars.get(0), car1);
         assertDeepEquals(cars.get(1), car2);
     }
-
+    
     private void assertDeepEquals(Car c1, Car c2){
         Assert.assertEquals(c1.getId(), c2.getId());
         Assert.assertEquals(c1.getBrand(), c2.getBrand());

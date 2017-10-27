@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.carparkmanager.persistence.dao;
 
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
 import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
+import enums.ClassificationOfEmployee;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

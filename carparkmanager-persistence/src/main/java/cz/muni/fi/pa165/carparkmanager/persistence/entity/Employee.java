@@ -36,8 +36,8 @@ public class Employee {
 
     @NotNull
     @Enumerated
-    private ClassificationOfEmployeesEnum classification;    
-
+    private ClassificationOfEmployeesEnum classification;
+    
     public Employee() {
         
     }
@@ -81,7 +81,7 @@ public class Employee {
     public void setBirthDate(Date dateOfBirth) {
         this.birthDate = dateOfBirth;
     }
-
+    
     public ClassificationOfEmployeesEnum getClassification() {
         return classification;
     }

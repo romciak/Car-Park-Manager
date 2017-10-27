@@ -6,7 +6,7 @@
 package cz.muni.fi.pa165.carparkmanager.persistence.dao;
 
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
-import enums.ClassificationOfEmployeeEnum;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
 import java.util.List;
 
 /**
@@ -14,24 +14,24 @@ import java.util.List;
  * @author xbonco1
  */
 public interface EmployeeDao {
+    
     /**
      * Method to create an employee
      * @param employee
-     * @throws IllegalArgumentException 
      */
-    
     public void create (Employee employee);
+    
     
     /**
      * Method to update an employee
      * @param employee
      */    
-    public void update (Employee employee);
+    public void update (Employee employee); 
     
     /**
      * Method to delete an employee
      * @param employee 
-     */    
+     */
     public void delete (Employee employee); 
     
     /**
@@ -66,5 +66,5 @@ public interface EmployeeDao {
      * @param classification enum value
      * @return a list of all Employees with a certain classification
      */
-    List<Employee> findByClassification(ClassificationOfEmployeeEnum classification);
+    List<Employee> findByClassification(ClassificationOfEmployeesEnum classification);
 }
