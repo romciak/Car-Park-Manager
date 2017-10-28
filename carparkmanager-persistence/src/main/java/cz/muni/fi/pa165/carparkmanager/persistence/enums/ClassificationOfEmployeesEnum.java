@@ -9,6 +9,6 @@ package cz.muni.fi.pa165.carparkmanager.persistence.enums;
  *
  * @author xbonco1
  */
-public class ClassificationOfEmployeesEnum {
-    
+public enum ClassificationOfEmployeesEnum {
+    MANAGER, ENGINEER, CLEANING_SERVICE, VOLUNTEER    
 }
