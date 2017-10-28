@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
-*/
-
 package cz.muni.fi.pa165.carparkmanager.persistence.entity;
 
 import javax.persistence.*;
@@ -26,12 +20,12 @@ public class ServiceCheck  {
     private Long id;  
     
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, name = "interval_from")
     @Temporal(TemporalType.DATE)
     private Date intervalFrom;
     
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, name = "interval_to")
     @Temporal(TemporalType.DATE)
     private Date intervalTo;
     
@@ -40,12 +34,10 @@ public class ServiceCheck  {
     private boolean done;
         
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, name = "done_when")
     @Temporal(TemporalType.DATE)
     private Date doneWhen;
 
-
-    // -----------------
     
     public ServiceCheck(Long id, Date intervalFrom, Date intervalTo, Boolean done, Date doneWhen) {
         this.id = id;
@@ -95,7 +87,6 @@ public class ServiceCheck  {
         this.doneWhen = DoneWhen;
     }
     
-    //--------------------
     
     @Override
     public int hashCode() {
@@ -108,47 +99,41 @@ public class ServiceCheck  {
         return hash ;
     }
 
-    //--------------------
-    
-     @Override
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        
         if (obj == null) {
             return false;
         }
-
-        if (!(obj instanceof ServiceCheck)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        
         final ServiceCheck other = (ServiceCheck) obj;
-        if (!Objects.equals(this.id, other.getId())) {
+        if (this.done != other.done) {
             return false;
         }
-        if (!Objects.equals(this.intervalFrom , other.getIntervalFrom())) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.intervalTo, other.getIntervalTo())) {
+        if (!Objects.equals(this.intervalFrom, other.intervalFrom)) {
             return false;
         }
-        if (!Objects.equals(this.done, other.getDone())) {
+        if (!Objects.equals(this.intervalTo, other.intervalTo)) {
             return false;
         }
-        
-        else if (!Objects.equals(this.doneWhen, other.getDoneWhen())) {
+        if (!Objects.equals(this.doneWhen, other.doneWhen)) {
             return false;
         }
-       
         return true;
-     }
+    }
+
     
-    
+
+    @Override
+    public String toString() {
+        return "ServiceCheck{" + "id=" + id + ", intervalFrom=" + intervalFrom + ", intervalTo=" + intervalTo + ", done=" + done + ", doneWhen=" + doneWhen + '}';
+    }
     
 }
-    
-    
-    
-

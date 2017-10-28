@@ -7,8 +7,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 /**
- * Implementations of CRUD operations for the ServiceCheck entity.
- *
  * @author Josef Marek
  */
 @Repository
@@ -16,7 +14,6 @@ public class ServiceCheckDaoImpl implements ServiceCheckDao {
     @PersistenceContext
     private EntityManager em;
 
-    /** Selects all the records from the ServiceCheck table. */
     public static String SELECT_ALL = "SELECT c FROM ServiceCheck c";
 
     @Override
