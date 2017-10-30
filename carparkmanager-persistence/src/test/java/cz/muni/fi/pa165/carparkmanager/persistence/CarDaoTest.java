@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.persistence;
 
+import cz.muni.fi.pa165.carparkmanager.persistence.conf.PersistenceApplicationContext;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,24 +10,18 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Jaroslav Bonco
  */
-@ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
+@ContextConfiguration(classes = PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class CarDaoTest {
-    
-    @PersistenceContext
-    public EntityManager em;
-
+public class CarDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private CarDao carDao;
 
@@ -51,11 +46,6 @@ public class CarDaoTest {
         car2.setEngineType("Perfection");
         car2.setKmCount(30000);
         car2.setProductionYear("2016");
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void createWithNullTest() {
-        carDao.create(null);
     }
 
     @Test

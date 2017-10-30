@@ -48,12 +48,12 @@ public class Car implements Serializable {
     @Column(nullable = true, name = "km_count")
     private int kmCount;
     
-    @OneToMany(mappedBy = "service_check", fetch = FetchType.LAZY, cascade = {
+    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade = {
         CascadeType.ALL
     })    
     private List<ServiceCheck> serviceCheckList;
     
-    @OneToMany(mappedBy = "drive", fetch = FetchType.LAZY, cascade = {
+    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade = {
         CascadeType.ALL
     })
     private List<Drive> driveList;

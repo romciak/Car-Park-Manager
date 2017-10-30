@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.persistence;
 
+import cz.muni.fi.pa165.carparkmanager.persistence.conf.PersistenceApplicationContext;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.ServiceCheckDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
 import java.text.ParseException;
@@ -20,8 +21,7 @@ import org.testng.annotations.Test;
  *
  * @author Jakub Juřena
  */
-
-@ContextConfiguration(classes=ConfigurationPersistence.class) // TODO
+@ContextConfiguration(classes = PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class ServiceCheckDaoTest extends AbstractTestNGSpringContextTests {
@@ -50,6 +50,7 @@ public class ServiceCheckDaoTest extends AbstractTestNGSpringContextTests {
         serviceCheck2.setIntervalFrom(sdf.parse("01.07.2007"));
         serviceCheck2.setIntervalTo(sdf.parse("01.01.2010"));
         serviceCheck2.setDone(false);
+        serviceCheck2.setDoneWhen(sdf.parse("20.5.2010"));
         
         serviceCheckDao.create(serviceCheck2);
         

@@ -35,7 +35,7 @@ public class Employee implements Serializable {
     @Enumerated
     private ClassificationOfEmployeesEnum classification;
 
-    @OneToMany(mappedBy = "drive", fetch = FetchType.LAZY, cascade = {
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = {
         CascadeType.ALL
     })
     private List<Drive> driveList;
@@ -90,6 +90,14 @@ public class Employee implements Serializable {
 
     public void setClassification(ClassificationOfEmployeesEnum classification) {
         this.classification = classification;
+    }
+
+    public List<Drive> getDriveList() {
+        return driveList;
+    }
+
+    public void setDriveList(List<Drive> driveList) {
+        this.driveList = driveList;
     }
     
     @Override

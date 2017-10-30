@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.carparkmanager.persistence.dao;
 
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
@@ -11,11 +6,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author xbonco1
  */
+@Transactional
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
 
@@ -44,26 +41,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public List<Employee> findAll() {
-        return em.createQuery("SELECT employee FROM Employee employee", Employee.class).getResultList();
+        return em.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
     }
 
     @Override
     public List<Employee> findByFirstname(String firstname) {
-        return em.createQuery("SELECT employee FROM Employee employee WHERE employee.firstname = :firstname")
+        return em.createQuery("SELECT e FROM Employee e WHERE e.firstname = :firstname")
                 .setParameter("firstname", firstname)
                 .getResultList();
     }
 
     @Override
     public List<Employee> findBySurname(String surname) {
-        return em.createQuery("SELECT employee FROM Employee employee WHERE employee.surname = :surname")
+        return em.createQuery("SELECT e FROM Employee e WHERE e.surname = :surname")
                 .setParameter("surname", surname)
                 .getResultList();
     }
 
     @Override
     public List<Employee> findByClassification(ClassificationOfEmployeesEnum classification) {
-        return em.createQuery("SELECT employee FROM Employee employee WHERE employee.classification = :classification")
+        return em.createQuery("SELECT e FROM Employee e WHERE e.classification = :classification")
                 .setParameter("classification", classification)
                 .getResultList();
     }

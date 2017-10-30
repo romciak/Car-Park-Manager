@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.persistence;
 
+import cz.muni.fi.pa165.carparkmanager.persistence.conf.PersistenceApplicationContext;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
 import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
@@ -19,7 +20,7 @@ import org.testng.annotations.Test;
  *
  * @author Roman Nedelka
  */
-@ContextConfiguration(classes=ConfigurationPersistence.class) // TODO
+@ContextConfiguration(classes = PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
