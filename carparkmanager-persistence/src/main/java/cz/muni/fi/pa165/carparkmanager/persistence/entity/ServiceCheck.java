@@ -33,11 +33,14 @@ public class ServiceCheck  {
     @Column(nullable = false)
     private boolean done;
         
-    @NotNull
     @Column(nullable = false, name = "done_when")
     @Temporal(TemporalType.DATE)
     private Date doneWhen;
 
+    
+    public ServiceCheck() {
+        
+    }
     
     public ServiceCheck(Long id, Date intervalFrom, Date intervalTo, Boolean done, Date doneWhen) {
         this.id = id;
