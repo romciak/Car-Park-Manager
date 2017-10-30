@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.carparkmanager.persistence.entity;
 
 import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -17,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @author xbonco1
  */
 @Entity
-public class Employee {
+public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,11 +34,16 @@ public class Employee {
     @NotNull
     @Enumerated
     private ClassificationOfEmployeesEnum classification;
-    
+
+    @OneToMany(mappedBy = "drive", fetch = FetchType.LAZY, cascade = {
+        CascadeType.ALL
+    })
+    private List<Drive> driveList;
+
     public Employee() {
-        
+
     }
-    
+
     public Employee(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployeesEnum classification) {
         this.id = id;
         this.firstname = firstname;

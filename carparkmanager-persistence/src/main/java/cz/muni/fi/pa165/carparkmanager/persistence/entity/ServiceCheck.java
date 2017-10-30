@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.persistence.entity;
 
+import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.Objects;
  */
 
 @Entity
-public class ServiceCheck  {
+public class ServiceCheck implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +38,9 @@ public class ServiceCheck  {
     @Temporal(TemporalType.DATE)
     private Date doneWhen;
 
+    @ManyToOne
+    @JoinColumn(name = "id_car", referencedColumnName = "id")
+    private Car car;
     
     public ServiceCheck() {
         
@@ -89,7 +93,14 @@ public class ServiceCheck  {
     public void setDoneWhen(Date DoneWhen) {
         this.doneWhen = DoneWhen;
     }
-    
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
     
     @Override
     public int hashCode() {
@@ -132,11 +143,11 @@ public class ServiceCheck  {
         return true;
     }
 
-    
-
     @Override
     public String toString() {
-        return "ServiceCheck{" + "id=" + id + ", intervalFrom=" + intervalFrom + ", intervalTo=" + intervalTo + ", done=" + done + ", doneWhen=" + doneWhen + '}';
+        return "ServiceCheck{" + "id=" + id + ", intervalFrom="
+                + intervalFrom + ", intervalTo=" + intervalTo + ", done="
+                + done + ", doneWhen=" + doneWhen + ", car=" + car + '}';
     }
-    
+
 }

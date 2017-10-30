@@ -1,12 +1,16 @@
 package cz.muni.fi.pa165.carparkmanager.persistence.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -43,6 +47,19 @@ public class Car implements Serializable {
 
     @Column(nullable = true, name = "km_count")
     private int kmCount;
+    
+    @OneToMany(mappedBy = "service_check", fetch = FetchType.LAZY, cascade = {
+        CascadeType.ALL
+    })    
+    private List<ServiceCheck> serviceCheckList;
+    
+    @OneToMany(mappedBy = "drive", fetch = FetchType.LAZY, cascade = {
+        CascadeType.ALL
+    })
+    private List<Drive> driveList;
+
+    public Car() {
+    }
 
     public Long getId() {
         return id;
@@ -100,6 +117,22 @@ public class Car implements Serializable {
         this.kmCount = kmCount;
     }
 
+    public List<ServiceCheck> getServiceCheckList() {
+        return serviceCheckList;
+    }
+
+    public void setServiceCheckList(List<ServiceCheck> serviceCheckList) {
+        this.serviceCheckList = serviceCheckList;
+    }
+
+    public List<Drive> getDriveList() {
+        return driveList;
+    }
+
+    public void setDriveList(List<Drive> driveList) {
+        this.driveList = driveList;
+    }
+
     @Override
     public int hashCode() {
         int result = 17;
@@ -144,8 +177,11 @@ public class Car implements Serializable {
 
     @Override
     public String toString() {
-        return "Car{" + "id=" + id + ", vin=" + vin + ", brand=" + brand + ", type=" + type
-                + ", engineType=" + engineType + ", productionYear=" + productionYear + ", kmCount=" + kmCount + '}';
+        return "Car{" + "id=" + id + ", vin=" + vin + ", brand=" + brand
+                + ", type=" + type + ", engineType=" + engineType
+                + ", productionYear=" + productionYear + ", kmCount="
+                + kmCount + ", serviceCheckList=" + serviceCheckList
+                + ", driveList=" + driveList + '}';
     }
 
 }

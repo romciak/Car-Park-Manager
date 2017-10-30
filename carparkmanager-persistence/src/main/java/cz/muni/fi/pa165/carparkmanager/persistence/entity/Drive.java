@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -17,7 +19,7 @@ import javax.validation.constraints.NotNull;
  * @author Jakub Juřena
  */
 @Entity
-public class Drive {
+public class Drive implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +37,17 @@ public class Drive {
     
     @Column(nullable = true, name = "km")
     private int km;
+
+    @ManyToOne
+    @JoinColumn(name = "id_car", referencedColumnName = "id")
+    private Car car;
+
+    @ManyToOne
+    @JoinColumn(name = "id_employee", referencedColumnName = "id")
+    private Employee employee;
+
+    public Drive() {
+    }
 
     public Long getId() {
         return id;
@@ -67,6 +80,22 @@ public class Drive {
     public void setKm(int km) {
         this.km = km;
     }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
     
     @Override
     public int hashCode() {
@@ -96,10 +125,12 @@ public class Drive {
             return false;
         return km == other.km; 
     }
-    
+
     @Override
-    public String toString(){
-        return "Drive{id=" + id + ", timeFrom=" + timeFrom 
-                + ", timeTo=" + timeTo + ", km=" + km + "}";
+    public String toString() {
+        return "Drive{" + "id=" + id + ", timeFrom=" + timeFrom
+                + ", timeTo=" + timeTo + ", km=" + km + ", car="
+                + car + ", employee=" + employee + '}';
     }
+
 }
