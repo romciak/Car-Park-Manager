@@ -12,14 +12,15 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
  *
  * @author Jaroslav Bonco
  */
-@ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
+@ContextConfiguration(classes = ConfigurationPersistence.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class CarDaoTest {
