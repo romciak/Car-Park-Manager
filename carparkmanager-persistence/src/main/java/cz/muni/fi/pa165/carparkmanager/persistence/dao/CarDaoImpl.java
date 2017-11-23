@@ -3,8 +3,8 @@ package cz.muni.fi.pa165.carparkmanager.persistence.dao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
-import org.hibernate.annotations.NamedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
