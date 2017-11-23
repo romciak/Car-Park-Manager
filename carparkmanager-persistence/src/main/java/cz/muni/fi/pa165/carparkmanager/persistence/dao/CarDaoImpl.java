@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.carparkmanager.persistence.dao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @Repository
-@NamedQuery(
-        name = "findAllCars",
-        query = "SELECT c FROM Car c"
-)
 public class CarDaoImpl implements CarDao {
 
     @PersistenceContext
@@ -46,7 +41,7 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public List<Car> findAll() {
-        return em.createNamedQuery("findAllCars", Car.class).getResultList();
+        return em.createNamedQuery("Car.findAllCars").getResultList();
     }
 
 }

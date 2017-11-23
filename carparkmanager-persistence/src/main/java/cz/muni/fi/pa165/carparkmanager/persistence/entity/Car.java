@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +20,10 @@ import javax.validation.constraints.NotNull;
  * @author Roman Nedelka
  */
 @Entity
+@NamedQuery(
+        name = "Car.findAllCars",
+        query = "SELECT c FROM Car c"
+)
 public class Car implements Serializable {
 
     @Id

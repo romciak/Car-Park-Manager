@@ -2,3 +2,5 @@
 *.class
 
 /carparkmanager-persistence/target/
+/carparkmanager-service/target/
+/carparkmanager-api/target/
