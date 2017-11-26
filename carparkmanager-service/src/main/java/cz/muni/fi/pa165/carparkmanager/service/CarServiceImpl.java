@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.carparkmanager.service;
 
+import cz.muni.fi.pa165.carparkmanager.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,29 +13,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarServiceImpl implements CarService {
 
+    @Autowired
+    private CarDao carDao;
+
     @Override
     public void create(Car c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        carDao.create(c);
     }
 
     @Override
     public void delete(Car c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        carDao.delete(c);
     }
 
     @Override
     public void update(Car c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        carDao.update(c);
     }
 
     @Override
     public Car findById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return carDao.findById(id);
     }
 
     @Override
     public List<Car> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return carDao.findAll();
     }
 
 }
