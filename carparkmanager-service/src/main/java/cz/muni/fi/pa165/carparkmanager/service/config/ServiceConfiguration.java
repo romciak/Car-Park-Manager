@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.carparkmanager.service.config;
 
 import cz.muni.fi.pa165.carparkmanager.persistence.conf.PersistenceApplicationContext;
+import cz.muni.fi.pa165.carparkmanager.service.CarServiceImpl;
+import cz.muni.fi.pa165.carparkmanager.service.facade.CarFacadeImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +16,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import(PersistenceApplicationContext.class)
-@ComponentScan(value = "cz.muni.fi.pa165.carparkmanager.service")
+ // TODO @ComponentScan(???)
 public class ServiceConfiguration {
 
     @Bean
