@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.carparkmanager.service;
 
 /**
  *
- * @author Roman Nedelka
+ * @author
  */
 public class EmployeeServiceTest {
     
