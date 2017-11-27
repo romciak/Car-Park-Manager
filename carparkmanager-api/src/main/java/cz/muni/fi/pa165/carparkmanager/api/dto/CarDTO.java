@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.api.dto;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,10 +16,8 @@ public class CarDTO {
     private String engineType;
     private String productionYear;
     private int kmCount;
-    // private List<ServiceCheckDTO> serviceCheckList;
-    // private List<DriveDTO> driveList;
-
-    // TODO odkomentovat, ked budu hotove ostatne DTO + upravit toString()
+    private List<ServiceCheckDTO> serviceCheckList;
+    private List<DriveDTO> driveList;
     
     public CarDTO() {
     }
@@ -79,7 +78,7 @@ public class CarDTO {
         this.kmCount = kmCount;
     }
 
-    /*public List<ServiceCheckDTO> getServiceCheckList() {
+    public List<ServiceCheckDTO> getServiceCheckList() {
         return serviceCheckList;
     }
 
@@ -93,7 +92,8 @@ public class CarDTO {
 
     public void setDriveList(List<DriveDTO> driveList) {
         this.driveList = driveList;
-    }*/
+    }
+    
     @Override
     public int hashCode() {
         int result = 17;
@@ -140,7 +140,9 @@ public class CarDTO {
     public String toString() {
         return "CarDTO{" + "id=" + id + ", vin=" + vin + ", brand=" + brand
                 + ", type=" + type + ", engineType=" + engineType
-                + ", productionYear=" + productionYear + ", kmCount=" + kmCount + '}';
+                + ", productionYear=" + productionYear + ", kmCount=" + kmCount
+                + ", serviceCheckList=" + serviceCheckList 
+                + ", driveList" + driveList + "}";
     }
 
 }
