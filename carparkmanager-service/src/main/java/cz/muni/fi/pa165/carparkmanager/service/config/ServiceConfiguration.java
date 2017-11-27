@@ -1,9 +1,9 @@
 package cz.muni.fi.pa165.carparkmanager.service.config;
 
 import cz.muni.fi.pa165.carparkmanager.api.dto.CarDTO;
+import cz.muni.fi.pa165.carparkmanager.api.dto.DriveDTO;
 import cz.muni.fi.pa165.carparkmanager.api.dto.EmployeeDTO;
-//import cz.muni.fi.pa165.carparkmanager.api.dto.DriveDTO;
-//import cz.muni.fi.pa165.carparkmanager.api.dto.ServiceCheckDTO;
+import cz.muni.fi.pa165.carparkmanager.api.dto.ServiceCheckDTO;
 import cz.muni.fi.pa165.carparkmanager.persistence.conf.PersistenceApplicationContext;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Drive;
@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import(PersistenceApplicationContext.class)
-@ComponentScan(basePackageClasses={CarServiceImpl.class, CarFacadeImpl.class})
+@ComponentScan(basePackageClasses = {CarServiceImpl.class, CarFacadeImpl.class})
 public class ServiceConfiguration {
 
     @Bean
@@ -40,8 +40,8 @@ public class ServiceConfiguration {
         protected void configure() {
             mapping(Car.class, CarDTO.class);
             mapping(Employee.class, EmployeeDTO.class);
-         //   mapping(ServiceCheck.class, ServiceCheckDTO.class);
-         //   mapping(Drive.class, DriveDTO.class);
+            mapping(ServiceCheck.class, ServiceCheckDTO.class);
+            mapping(Drive.class, DriveDTO.class);
         }
-    } 
+    }
 }
