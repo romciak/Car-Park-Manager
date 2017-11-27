@@ -5,11 +5,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * Implementations of Dao interface for the Drive entity
  * 
  * @author Jakub Juřena
  */
+@Transactional
+@Repository
 public class DriveDaoImpl implements DriveDao {
 
     @PersistenceContext
@@ -39,6 +43,6 @@ public class DriveDaoImpl implements DriveDao {
 
     @Override
     public List<Drive> findAll() {
-        return em.createNamedQuery(SELECT_ALL, Drive.class).getResultList();
+        return em.createQuery(SELECT_ALL, Drive.class).getResultList();
     }
 }

@@ -1,69 +1,26 @@
-package cz.muni.fi.pa165.carparkmanager.persistence.entity;
+package cz.muni.fi.pa165.carparkmanager.api.dto;
 
-import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 /**
- * Car entity.
  *
  * @author Roman Nedelka
  */
-@Entity
-@NamedQuery(
-        name = "Car.findAllCars",
-        query = "SELECT c FROM Car c"
-)
-public class Car implements Serializable {
+public class CarDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
-    @Column(nullable = false, unique = true)
     private String vin;
-
-    @NotNull
-    @Column(nullable = false)
     private String brand;
-
-    @NotNull
-    @Column(nullable = false)
     private String type;
-
-    @NotNull
-    @Column(nullable = false, name = "engine_type")
     private String engineType;
-
-    @NotNull
-    @Column(nullable = false, name = "production_year")
     private String productionYear;
-
-    @Column(nullable = true, name = "km_count")
     private int kmCount;
+    // private List<ServiceCheckDTO> serviceCheckList;
+    // private List<DriveDTO> driveList;
 
-    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade = {
-        CascadeType.ALL
-    })
-    private List<ServiceCheck> serviceCheckList;
-
-    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade = {
-        CascadeType.ALL
-    })
-    private List<Drive> driveList;
-
-    public Car() {
+    // TODO odkomentovat, ked budu hotove ostatne DTO + upravit toString()
+    
+    public CarDTO() {
     }
 
     public Long getId() {
@@ -122,22 +79,21 @@ public class Car implements Serializable {
         this.kmCount = kmCount;
     }
 
-    public List<ServiceCheck> getServiceCheckList() {
+    /*public List<ServiceCheckDTO> getServiceCheckList() {
         return serviceCheckList;
     }
 
-    public void setServiceCheckList(List<ServiceCheck> serviceCheckList) {
+    public void setServiceCheckList(List<ServiceCheckDTO> serviceCheckList) {
         this.serviceCheckList = serviceCheckList;
     }
 
-    public List<Drive> getDriveList() {
+    public List<DriveDTO> getDriveList() {
         return driveList;
     }
 
-    public void setDriveList(List<Drive> driveList) {
+    public void setDriveList(List<DriveDTO> driveList) {
         this.driveList = driveList;
-    }
-
+    }*/
     @Override
     public int hashCode() {
         int result = 17;
@@ -158,10 +114,10 @@ public class Car implements Serializable {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Car)) {
+        if (!(obj instanceof CarDTO)) {
             return false;
         }
-        final Car other = (Car) obj;
+        final CarDTO other = (CarDTO) obj;
         if (this.kmCount != other.kmCount) {
             return false;
         }
@@ -182,11 +138,9 @@ public class Car implements Serializable {
 
     @Override
     public String toString() {
-        return "Car{" + "id=" + id + ", vin=" + vin + ", brand=" + brand
+        return "CarDTO{" + "id=" + id + ", vin=" + vin + ", brand=" + brand
                 + ", type=" + type + ", engineType=" + engineType
-                + ", productionYear=" + productionYear + ", kmCount="
-                + kmCount + ", serviceCheckList=" + serviceCheckList
-                + ", driveList=" + driveList + '}';
+                + ", productionYear=" + productionYear + ", kmCount=" + kmCount + '}';
     }
 
 }

@@ -5,19 +5,19 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementations of CRUD operations for the Car entity.
  *
  * @author Roman Nedelka
  */
+@Transactional
 @Repository
 public class CarDaoImpl implements CarDao {
+
     @PersistenceContext
     private EntityManager em;
-
-    /** Selects all the records from the Car table. */
-    public static String SELECT_ALL = "SELECT c FROM Car c";
 
     @Override
     public void create(Car c) {
@@ -41,7 +41,7 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public List<Car> findAll() {
-        return em.createQuery(SELECT_ALL, Car.class).getResultList();
+        return em.createNamedQuery("Car.findAllCars").getResultList();
     }
 
 }
