@@ -19,7 +19,7 @@ public class DriveDaoImpl implements DriveDao {
     @PersistenceContext
     private EntityManager em;
     
-    public static String SELECT_ALL = "SELECT d FROM Drive d";
+    public static final String SELECT_ALL = "SELECT d FROM Drive d";
     
     @Override
     public void create(Drive drive) {
