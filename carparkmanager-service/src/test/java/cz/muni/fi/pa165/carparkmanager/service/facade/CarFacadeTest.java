@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import cz.muni.fi.pa165.carparkmanager.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.carparkmanager.service.utils.DataMapper;
+import cz.muni.fi.pa165.carparkmanager.service.utils.DataMapperImpl;
 import java.util.Arrays;
 import java.util.List;
 import static org.mockito.Matchers.any;
@@ -24,6 +26,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.mockito.Mockito.when;
+import org.mockito.Spy;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -37,6 +41,10 @@ public class CarFacadeTest extends AbstractTestNGSpringContextTests {
 
     @InjectMocks
     private final CarFacade carFacade = new CarFacadeImpl();
+    
+    @Spy
+    @Autowired
+    private final DataMapper dataMapper = new DataMapperImpl();
 
     @BeforeClass
     public void setup() throws ServiceException {
@@ -58,6 +66,7 @@ public class CarFacadeTest extends AbstractTestNGSpringContextTests {
         carDto1 = new CarDTO();
         carDto2 = new CarDTO();
 
+        car1.setId(1L);
         car1.setVin("1");
         car1.setBrand("ISUZU");
         car1.setType("Truck");
@@ -115,15 +124,7 @@ public class CarFacadeTest extends AbstractTestNGSpringContextTests {
         assertNotNull(carDTO);
         assertEquals(carDTO.getId(), carDTO.getId());
     }
-
-    @Test(expectedExceptions = DataAccessException.class)
-    @SuppressWarnings("unchecked")
-    public void findByWrongId() {
-        when(carService.findById(4L)).thenThrow(DataAccessException.class);
-        CarDTO carDTO = carFacade.findById(4L);
-        assertNull(carDTO);
-    }
-
+    
     @Test
     public void findAllServiceTest() {
         when(carService.findAll()).thenReturn(Arrays.asList(car1, car2));
