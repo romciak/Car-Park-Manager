@@ -85,7 +85,7 @@ public class Drive {
         if (obj == null) 
             return false;
         
-        if (getClass() != obj.getClass()) 
+        if (!(obj instanceof Drive))
             return false;
         
         
