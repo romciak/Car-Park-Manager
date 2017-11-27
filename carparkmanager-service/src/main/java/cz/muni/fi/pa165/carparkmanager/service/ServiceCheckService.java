@@ -2,11 +2,13 @@ package cz.muni.fi.pa165.carparkmanager.service;
 
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Jakub Juřena
  */
+@Service
 public interface ServiceCheckService {
     /**
      * Creates record and saves it to DB

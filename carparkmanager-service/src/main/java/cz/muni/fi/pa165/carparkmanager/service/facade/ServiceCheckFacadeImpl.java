@@ -7,11 +7,15 @@ import cz.muni.fi.pa165.carparkmanager.service.ServiceCheckService;
 import cz.muni.fi.pa165.carparkmanager.service.utils.DataMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Jakub Juřena
  */
+@Service
+@Transactional
 public class ServiceCheckFacadeImpl implements ServiceCheckFacade{
 
     @Autowired

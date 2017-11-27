@@ -4,11 +4,13 @@ import cz.muni.fi.pa165.carparkmanager.persistence.dao.DriveDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Drive;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Jakub Juřena
  */
+@Service
 public class DriveServiceImpl implements DriveService {
     
     @Autowired

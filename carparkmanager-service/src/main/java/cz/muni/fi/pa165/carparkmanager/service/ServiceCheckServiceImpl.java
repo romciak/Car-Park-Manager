@@ -4,11 +4,13 @@ import cz.muni.fi.pa165.carparkmanager.persistence.dao.ServiceCheckDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Jakub Juřena
  */
+@Service
 public class ServiceCheckServiceImpl implements ServiceCheckService {
     
     @Autowired
