@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.carparkmanager.api.dto;
 
 import java.util.Date;
@@ -20,6 +15,8 @@ public class DriveDTO {
     private CarDTO car;
     //private EmployeeDTO employee;
 
+    // TODO odkomentovat employee, getter, setter, upravit equals, hashcode a tostring
+    
     public Long getId() {
         return id;
     }
@@ -60,14 +57,23 @@ public class DriveDTO {
         this.car = car;
     }
 
+    /*public EmployeeDTO getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(EmployeeDTO employee) {
+        this.employee = employee;
+    }*/
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + Objects.hashCode(this.timeFrom);
-        hash = 23 * hash + Objects.hashCode(this.timeTo);
-        hash = 23 * hash + this.km;
-        hash = 23 * hash + Objects.hashCode(this.car);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.timeFrom);
+        hash = 97 * hash + Objects.hashCode(this.timeTo);
+        hash = 97 * hash + this.km;
+        hash = 97 * hash + Objects.hashCode(this.car);
+        //hash = 97 * hash + Objects.hashCode(this.employee);
         return hash;
     }
 
@@ -98,8 +104,17 @@ public class DriveDTO {
         if (!Objects.equals(this.car, other.car)) {
             return false;
         }
+        /*if (!Objects.equals(this.employee, other.employee)) {
+            return false;
+        }*/
         return true;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "DriveDTO{" + "id=" + id + ", timeFrom=" + timeFrom
+                + ", timeTo=" + timeTo + ", km=" + km + ", car=" + car
+                + /*", employee=" + employee +*/ '}';
+    }
+
 }
