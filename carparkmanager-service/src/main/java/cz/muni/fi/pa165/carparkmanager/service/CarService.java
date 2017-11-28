@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.service;
 
+import cz.muni.fi.pa165.carparkmanager.api.exceptions.CarparkmanagerException;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,17 @@ public interface CarService {
      * @return
      */
     List<Car> findAll();
+
+    /**
+     * Non-trivial method. Allows employyes to lend a car. Checks, whether a
+     * car's count of kilometers is not exceeded and handles lending in
+     * accordance to employee's classification. As a result, creates a row in
+     * the Drive table, related to given eployee and car.
+     *
+     * @param employeeId employee identification
+     * @param carId car identification
+     * @throws CarparkmanagerException
+     */
+    void lendCar(long employeeId, long carId) throws CarparkmanagerException;
 
 }
