@@ -95,7 +95,7 @@ public class DriveFacadeTest extends AbstractTestNGSpringContextTests {
         when(driveService.findById(10L)).thenReturn(drive);
         DriveDTO driveDTOx = driveFacade.findById(drive.getId());
         assertNotNull(driveDTOx);
-        assertEquals(driveDTOx.getId(), driveDTOx.getId());
+        assertEquals(driveDTO.getId(), driveDTOx.getId());
     }
 
     @Test

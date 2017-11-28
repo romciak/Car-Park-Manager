@@ -97,7 +97,7 @@ public class ServiceCheckFacadeTest extends AbstractTestNGSpringContextTests {
         when(serviceCheckService.findById(10L)).thenReturn(serviceCheck);
         ServiceCheckDTO serviceCheckDTOx = serviceCheckFacade.findById(serviceCheck.getId());
         assertNotNull(serviceCheckDTOx);
-        assertEquals(serviceCheckDTOx.getId(), serviceCheckDTOx.getId());
+        assertEquals(serviceCheckDTO.getId(), serviceCheckDTOx.getId());
     }
 
     @Test
