@@ -156,7 +156,7 @@ public class CarServiceImpl implements CarService {
             if (drive.getTimeFrom().after(from) && drive.getTimeFrom().before(to) // zacina v intervalu
                     || drive.getTimeTo().after(from) && drive.getTimeTo().before(to) // konci v intervalu
                     || drive.getTimeFrom().before(from) && drive.getTimeTo().after(to) // zacina pred a konci po
-                    || drive.getTimeFrom().equals(from) && drive.getTimeTo().equals(to) 
+                    || drive.getTimeFrom().equals(from) || drive.getTimeTo().equals(to) 
                     ) {
                 driveDao.delete(drive);
             }
