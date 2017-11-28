@@ -52,7 +52,7 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
     private ServiceCheck serviceCheck;
 
     private ServiceCheckDTO serviceCheckDTO;
-    
+
     @BeforeMethod
     public void prepare() {
 
@@ -72,9 +72,8 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
         serviceCheckDTO.setDone(true);
         serviceCheckDTO.setDoneWhen(date);
 
-        
     }
-    
+
     @Test
     public void createService() {
         serviceCheckFacade.create(serviceCheckDTO);
@@ -110,6 +109,4 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
         assertEquals(drives.get(0).getId(), serviceCheck.getId());
     }
 
-    
-    
 }
