@@ -27,7 +27,7 @@ public class CarServiceImpl implements CarService {
     
     @Autowired
     private DriveDao driveDao;
-
+    
     @Override
     public void create(Car c) {
         try {
@@ -85,14 +85,10 @@ public class CarServiceImpl implements CarService {
         long fourMonths = 4l * 30 * 24 * 60 * 60 * 1000;
         long week = 7l * 24 * 60 * 60 * 1000;
         
-        List<ServiceCheck> carsServiceChecks = serviceCheckDao.findAll();
+        List<ServiceCheck> carsServiceChecks = car.getServiceCheckList();
         
-        if ( !carsServiceChecks.isEmpty()){
-            // delete sc of others cars
-            for (ServiceCheck sc : carsServiceChecks) {
-                if (!sc.getCar().equals(car))
-                    carsServiceChecks.remove(sc);
-            }
+       
+        if ( carsServiceChecks != null && !carsServiceChecks.isEmpty()){
 
             Date lastCheckDate = carsServiceChecks.get(0).getDoneWhen();
             if (lastCheckDate != null) {
@@ -151,22 +147,21 @@ public class CarServiceImpl implements CarService {
     }
     
     private void cancelDrives(Date from, Date to, Car car) {
-        List<Drive> drives = driveDao.findAll();
+        List<Drive> drives = car.getDriveList();
+        if (drives == null )
+            return;
         // select drives with car
         for (Drive drive: drives) {
-            if (! drive.getCar().equals(car)){
-                drives.remove(drive);
-            } else {
-                // cancel drives
-                if (drive.getTimeFrom().after(from) && drive.getTimeFrom().before(to) // zacina v intervalu
-                        || drive.getTimeTo().after(from) && drive.getTimeTo().before(to) // konci v intervalu
-                        || drive.getTimeFrom().before(from) && drive.getTimeTo().after(to) // zacina pred a konci po
-                        || drive.getTimeFrom().equals(from) && drive.getTimeTo().equals(to) 
-                        ) {
-                    driveDao.delete(drive);
-                }
+            // cancel drives
+            if (drive.getTimeFrom().after(from) && drive.getTimeFrom().before(to) // zacina v intervalu
+                    || drive.getTimeTo().after(from) && drive.getTimeTo().before(to) // konci v intervalu
+                    || drive.getTimeFrom().before(from) && drive.getTimeTo().after(to) // zacina pred a konci po
+                    || drive.getTimeFrom().equals(from) && drive.getTimeTo().equals(to) 
+                    ) {
+                driveDao.delete(drive);
             }
         }
+        
     }
     
 }

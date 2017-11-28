@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 public class ServiceCheckServiceImpl implements ServiceCheckService {
 
     @Autowired
-    private ServiceCheckDao ServiceCheckDao;
+    private ServiceCheckDao serviceCheckDao;
 
     @Override
     public void create(ServiceCheck serviceCheck) {
         try {
-            ServiceCheckDao.create(serviceCheck);
+            serviceCheckDao.create(serviceCheck);
         } catch (Exception e) {
             throw new DataAccessException("Cannot create ServiceCheck: " + e.getMessage(), e) {
             };
@@ -30,7 +30,7 @@ public class ServiceCheckServiceImpl implements ServiceCheckService {
     @Override
     public void delete(ServiceCheck serviceCheck) {
         try {
-            ServiceCheckDao.delete(serviceCheck);
+            serviceCheckDao.delete(serviceCheck);
         } catch (Exception e) {
             throw new DataAccessException("Cannot delete ServiceCheck: " + e.getMessage(), e) {
             };
@@ -40,7 +40,7 @@ public class ServiceCheckServiceImpl implements ServiceCheckService {
     @Override
     public void update(ServiceCheck serviceCheck) {
         try {
-            ServiceCheckDao.update(serviceCheck);
+            serviceCheckDao.update(serviceCheck);
         } catch (Exception e) {
             throw new DataAccessException("Cannot update ServiceCheck: " + e.getMessage(), e) {
             };
@@ -50,7 +50,7 @@ public class ServiceCheckServiceImpl implements ServiceCheckService {
     @Override
     public ServiceCheck findById(Long id) {
         try {
-            return ServiceCheckDao.findById(id);
+            return serviceCheckDao.findById(id);
         } catch (Exception e) {
             throw new DataAccessException("Cannot find ServiceCheck: " + e.getMessage(), e) {
             };
@@ -60,7 +60,7 @@ public class ServiceCheckServiceImpl implements ServiceCheckService {
     @Override
     public List<ServiceCheck> findAll() {
         try {
-            return ServiceCheckDao.findAll();
+            return serviceCheckDao.findAll();
         } catch (Exception e) {
             throw new DataAccessException("Cannot findAll ServiceCheck: " + e.getMessage(), e) {
             };
