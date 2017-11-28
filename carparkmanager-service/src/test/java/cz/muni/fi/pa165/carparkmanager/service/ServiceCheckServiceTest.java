@@ -46,14 +46,14 @@ public class ServiceCheckServiceTest extends AbstractTestNGSpringContextTests {
         Date date = new Date();
 
         serviceCheck1 = new ServiceCheck();
-        serviceCheck1.setId(Long.MIN_VALUE);
+        serviceCheck1.setId(10L);
         serviceCheck1.setDone(true);
         serviceCheck1.setDoneWhen(date);
         serviceCheck1.setIntervalFrom(date);
         serviceCheck1.setIntervalTo(date);
 
         serviceCheck2 = new ServiceCheck();
-        serviceCheck2.setId(Long.MIN_VALUE);
+        serviceCheck2.setId(10L);
         serviceCheck2.setDone(true);
         serviceCheck2.setDoneWhen(date);
         serviceCheck2.setIntervalFrom(date);

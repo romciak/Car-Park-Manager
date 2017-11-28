@@ -59,14 +59,14 @@ public class ServiceCheckFacadeTest extends AbstractTestNGSpringContextTests {
         Date date = new Date();
 
         serviceCheck = new ServiceCheck();
-        serviceCheck.setId(Long.MIN_VALUE);
+        serviceCheck.setId(10L);
         serviceCheck.setDone(true);
         serviceCheck.setDoneWhen(date);
         serviceCheck.setIntervalFrom(date);
         serviceCheck.setIntervalTo(date);
 
         serviceCheckDTO = new ServiceCheckDTO();
-        serviceCheckDTO.setId(Long.MIN_VALUE);
+        serviceCheckDTO.setId(10L);
         serviceCheckDTO.setDone(true);
         serviceCheckDTO.setDoneWhen(date);
         serviceCheckDTO.setIntervalFrom(date);
@@ -94,7 +94,7 @@ public class ServiceCheckFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findById() {
-        when(serviceCheckService.findById(Long.MIN_VALUE)).thenReturn(serviceCheck);
+        when(serviceCheckService.findById(10L)).thenReturn(serviceCheck);
         ServiceCheckDTO serviceCheckDTOx = serviceCheckFacade.findById(serviceCheck.getId());
         assertNotNull(serviceCheckDTOx);
         assertEquals(serviceCheckDTOx.getId(), serviceCheckDTOx.getId());

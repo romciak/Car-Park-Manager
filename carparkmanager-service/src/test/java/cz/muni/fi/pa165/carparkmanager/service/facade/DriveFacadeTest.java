@@ -59,13 +59,13 @@ public class DriveFacadeTest extends AbstractTestNGSpringContextTests {
         Date date = new Date();
 
         drive = new Drive();
-        drive.setId(Long.MIN_VALUE);
+        drive.setId(10L);
         drive.setKm(0);
         drive.setTimeFrom(date);
         drive.setTimeTo(date);
 
         driveDTO = new DriveDTO();
-        driveDTO.setId(Long.MIN_VALUE);
+        driveDTO.setId(10L);
         driveDTO.setKm(0);
         driveDTO.setTimeFrom(date);
         driveDTO.setTimeTo(date);
@@ -92,7 +92,7 @@ public class DriveFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findById() {
-        when(driveService.findById(Long.MIN_VALUE)).thenReturn(drive);
+        when(driveService.findById(10L)).thenReturn(drive);
         DriveDTO driveDTOx = driveFacade.findById(drive.getId());
         assertNotNull(driveDTOx);
         assertEquals(driveDTOx.getId(), driveDTOx.getId());
