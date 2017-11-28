@@ -17,15 +17,15 @@ import org.testng.annotations.Test;
  * @author xbonco1
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class DataMapperTest extends AbstractTestNGSpringContextTests{
-    
+public class DataMapperTest extends AbstractTestNGSpringContextTests {
+
     @Autowired
     private DataMapper dataMapper;
 
     private Car car;
 
     private CarDTO carDTO;
-    
+
     @BeforeClass
     public void setUp() throws ParseException {
 

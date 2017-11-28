@@ -16,14 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class ServiceCheckFacadeImpl implements ServiceCheckFacade{
+public class ServiceCheckFacadeImpl implements ServiceCheckFacade {
 
     @Autowired
     private ServiceCheckService serviceCheckService;
-    
+
     @Autowired
     private DataMapper mapper;
-    
+
     @Override
     public void create(ServiceCheckDTO s) {
         ServiceCheck serviceCheck = mapper.mapTo(s, ServiceCheck.class);
@@ -33,12 +33,14 @@ public class ServiceCheckFacadeImpl implements ServiceCheckFacade{
     @Override
     public void delete(ServiceCheckDTO s) {
         ServiceCheck serviceCheck = mapper.mapTo(s, ServiceCheck.class);
-        serviceCheckService.delete(serviceCheck);}
+        serviceCheckService.delete(serviceCheck);
+    }
 
     @Override
     public void update(ServiceCheckDTO s) {
         ServiceCheck serviceCheck = mapper.mapTo(s, ServiceCheck.class);
-        serviceCheckService.update(serviceCheck);}
+        serviceCheckService.update(serviceCheck);
+    }
 
     @Override
     public ServiceCheckDTO findById(Long id) {
@@ -51,5 +53,5 @@ public class ServiceCheckFacadeImpl implements ServiceCheckFacade{
         List<ServiceCheck> serviceChecks = serviceCheckService.findAll();
         return mapper.mapTo(serviceChecks, ServiceCheckDTO.class);
     }
-    
+
 }

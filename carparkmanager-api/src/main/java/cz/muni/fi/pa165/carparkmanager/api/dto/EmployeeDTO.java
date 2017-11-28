@@ -10,13 +10,14 @@ import java.util.Objects;
  * @author xbonco1
  */
 public class EmployeeDTO {
+
     private Long id;
     private String firstname;
-    private String surname; 
+    private String surname;
     private Date birthDate;
     private ClassificationOfEmployeesEnum classification;
-    // private List<DriveDTO> driveList;
-    
+    private List<DriveDTO> driveList;
+
     public EmployeeDTO() {
 
     }
@@ -26,9 +27,9 @@ public class EmployeeDTO {
         this.firstname = firstname;
         this.surname = surname;
         this.birthDate = birthDate;
-        this.classification = classification;         
+        this.classification = classification;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -36,11 +37,11 @@ public class EmployeeDTO {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getFirstname() {
         return firstname;
     }
-    
+
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
@@ -60,7 +61,7 @@ public class EmployeeDTO {
     public void setBirthDate(Date dateOfBirth) {
         this.birthDate = dateOfBirth;
     }
-    
+
     public ClassificationOfEmployeesEnum getClassification() {
         return classification;
     }
@@ -69,7 +70,6 @@ public class EmployeeDTO {
         this.classification = classification;
     }
 
-    /*
     public List<DriveDTO> getDriveList() {
         return driveList;
     }
@@ -77,8 +77,7 @@ public class EmployeeDTO {
     public void setDriveList(List<DriveDTO> driveList) {
         this.driveList = driveList;
     }
-    */
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -104,7 +103,7 @@ public class EmployeeDTO {
         if (!(obj instanceof EmployeeDTO)) {
             return false;
         }
-        
+
         final EmployeeDTO other = (EmployeeDTO) obj;
         if (!Objects.equals(this.id, other.getId())) {
             return false;
@@ -121,10 +120,10 @@ public class EmployeeDTO {
         if (this.classification != other.getClassification()) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "EmployeeDTO{" + "id=" + id + ", firstName=" + firstname + ", surname=" + surname
