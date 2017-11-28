@@ -2,8 +2,14 @@ package cz.muni.fi.pa165.carparkmanager.service;
 
 import cz.muni.fi.pa165.carparkmanager.api.exceptions.CarparkmanagerException;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.CarDao;
+import cz.muni.fi.pa165.carparkmanager.persistence.dao.DriveDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
+import cz.muni.fi.pa165.carparkmanager.persistence.entity.Drive;
+import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,6 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CarServiceImpl implements CarService {
+
     public static final long KM_LIMIT = 300000L;
 
     @Autowired
@@ -22,6 +29,9 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private EmployeeDao employeeDao;
+
+    @Autowired
+    private DriveDao driveDao;
 
     @Override
     public void create(Car c) {
@@ -72,13 +82,24 @@ public class CarServiceImpl implements CarService {
             };
         }
     }
-    
+
     @Override
-    public void lendCar(long employeeId, long carId) throws CarparkmanagerException {
+    public void reserveDrive(long employeeId, long carId, Date from, Date to) throws CarparkmanagerException {
         Car car = carDao.findById(carId);
         if (car.getKmCount() > KM_LIMIT) {
             throw new CarparkmanagerException("Cannot lend a car - count of kilometers exceeded. ");
         }
+
+        Employee employee = employeeDao.findById(employeeId);
+
+        Drive drive = new Drive();
+        drive.setCar(car);
+        drive.setEmployee(employee);
+        drive.setTimeFrom(from);
+        drive.setTimeTo(to);
+
+        driveDao.create(drive);
+
     }
 
 }
