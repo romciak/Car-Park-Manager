@@ -8,15 +8,14 @@ import java.util.Objects;
  * @author Jakub Juřena
  */
 public class DriveDTO {
+
     private Long id;
     private Date timeFrom;
     private Date timeTo;
     private int km;
     private CarDTO car;
-    //private EmployeeDTO employee;
+    private EmployeeDTO employee;
 
-    // TODO odkomentovat employee, getter, setter, upravit equals, hashcode a tostring
-    
     public Long getId() {
         return id;
     }
@@ -57,13 +56,13 @@ public class DriveDTO {
         this.car = car;
     }
 
-    /*public EmployeeDTO getEmployee() {
+    public EmployeeDTO getEmployee() {
         return employee;
     }
 
     public void setEmployee(EmployeeDTO employee) {
         this.employee = employee;
-    }*/
+    }
 
     @Override
     public int hashCode() {
@@ -73,7 +72,7 @@ public class DriveDTO {
         hash = 97 * hash + Objects.hashCode(this.timeTo);
         hash = 97 * hash + this.km;
         hash = 97 * hash + Objects.hashCode(this.car);
-        //hash = 97 * hash + Objects.hashCode(this.employee);
+        hash = 97 * hash + Objects.hashCode(this.employee);
         return hash;
     }
 
@@ -104,9 +103,9 @@ public class DriveDTO {
         if (!Objects.equals(this.car, other.car)) {
             return false;
         }
-        /*if (!Objects.equals(this.employee, other.employee)) {
+        if (!Objects.equals(this.employee, other.employee)) {
             return false;
-        }*/
+        }
         return true;
     }
 
@@ -114,7 +113,7 @@ public class DriveDTO {
     public String toString() {
         return "DriveDTO{" + "id=" + id + ", timeFrom=" + timeFrom
                 + ", timeTo=" + timeTo + ", km=" + km + ", car=" + car
-                + /*", employee=" + employee +*/ '}';
+                + ", employee=" + employee + '}';
     }
 
 }

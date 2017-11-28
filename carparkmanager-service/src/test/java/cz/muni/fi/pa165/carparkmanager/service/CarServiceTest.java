@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class CarServiceTest extends AbstractTestNGSpringContextTests {
-    
+
     @Mock
     private CarDao carDao;
 
@@ -61,7 +61,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         car2.setKmCount(30000);
         car2.setProductionYear("2016");
     }
-    
+
     @Test
     public void createCarTest() {
         carService.create(car1);
@@ -73,7 +73,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         carService.update(car1);
         verify(carDao).update(any(Car.class));
     }
-    
+
     @Test
     public void deleteCarTest() {
         carService.delete(car1);
@@ -88,7 +88,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         when(carDao.findById(0L)).thenReturn(null);
         Assert.assertEquals(carService.findById(0L), null);
     }
-    
+
     @Test
     public void findAllCars() {
         when(carDao.findAll()).thenReturn(Arrays.asList(car1, car2));

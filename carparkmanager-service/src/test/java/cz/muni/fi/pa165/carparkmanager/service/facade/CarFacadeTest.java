@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.carparkmanager.service.facade;
 
-
 import cz.muni.fi.pa165.carparkmanager.api.dto.CarDTO;
 import cz.muni.fi.pa165.carparkmanager.api.facade.CarFacade;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -39,7 +38,7 @@ public class CarFacadeTest extends AbstractTestNGSpringContextTests {
 
     @InjectMocks
     private final CarFacade carFacade = new CarFacadeImpl();
-    
+
     @Spy
     @Autowired
     private final DataMapper dataMapper = new DataMapperImpl();
@@ -106,15 +105,13 @@ public class CarFacadeTest extends AbstractTestNGSpringContextTests {
         carFacade.update(carDto2);
         verify(carService).update(any(Car.class));
     }
-    
-    
+
     @Test
     public void deleteTest() {
         carFacade.delete(carDto2);
         verify(carService).delete(car2);
     }
 
-    
     @Test
     public void findById() {
         when(carService.findById(1L)).thenReturn(car1);
@@ -122,7 +119,7 @@ public class CarFacadeTest extends AbstractTestNGSpringContextTests {
         assertNotNull(carDTO);
         assertEquals(carDTO.getId(), carDTO.getId());
     }
-    
+
     @Test
     public void findAllServiceTest() {
         when(carService.findAll()).thenReturn(Arrays.asList(car1, car2));
