@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.carparkmanager.service;
 
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
+import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,15 @@ public interface CarService {
      * @return
      */
     List<Car> findAll();
+    
+    /**
+     * nontrivial-method check if last serviceCheck is older than 4 months, if is older, than generate new one.
+     * If in planed serviceCheck is planed any drive, drive will be canceled
+     * 
+     * 
+     * @param car car to check
+     * @return ServiceCheck null if planning ServiceCheck is unnecessary, ServiceCheck if method generated new ServiceCheck
+     */
+    ServiceCheck checkServiceInterval(Car car);
 
 }
