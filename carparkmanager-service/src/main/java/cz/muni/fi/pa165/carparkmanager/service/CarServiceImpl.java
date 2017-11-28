@@ -82,8 +82,8 @@ public class CarServiceImpl implements CarService {
     public ServiceCheck checkServiceInterval(Car car){
         
         Date now = new Date();
-        long fourMonths = 4 * 30 * 24 * 60 * 60 * 1000;
-        long week = 7 * 24 * 60 * 60 * 1000;
+        long fourMonths = 4l * 30 * 24 * 60 * 60 * 1000;
+        long week = 7l * 24 * 60 * 60 * 1000;
         
         List<ServiceCheck> carsServiceChecks = serviceCheckDao.findAll();
         
