@@ -117,7 +117,7 @@ public class CarFacadeTest extends AbstractTestNGSpringContextTests {
         when(carService.findById(1L)).thenReturn(car1);
         CarDTO carDTO = carFacade.findById(car1.getId());
         assertNotNull(carDTO);
-        assertEquals(carDTO.getId(), carDTO.getId());
+        assertEquals(car1.getId(), carDTO.getId());
     }
 
     @Test
