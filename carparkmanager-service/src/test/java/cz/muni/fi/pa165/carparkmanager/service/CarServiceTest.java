@@ -5,7 +5,10 @@ import org.mockito.Mock;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.CarDao;
+import cz.muni.fi.pa165.carparkmanager.persistence.dao.DriveDao;
+import cz.muni.fi.pa165.carparkmanager.persistence.dao.ServiceCheckDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
+import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
 import java.util.Arrays;
 import java.util.List;
 import org.hibernate.service.spi.ServiceException;
@@ -28,9 +31,21 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private CarDao carDao;
+    
+    @Mock
+    private ServiceCheckDao serviceCheckDao;
+    
+    @Mock
+    private DriveDao driveDao;
 
     @InjectMocks
     private final CarService carService = new CarServiceImpl();
+    
+    @InjectMocks
+    private final ServiceCheckService serviceCheckService = new ServiceCheckServiceImpl();
+    
+    @InjectMocks
+    private final DriveService driveService = new DriveServiceImpl();
 
     @BeforeClass
     public void setup() throws ServiceException {
@@ -94,5 +109,11 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         when(carDao.findAll()).thenReturn(Arrays.asList(car1, car2));
         final List<Car> cars = carService.findAll();
         Assert.assertEquals(2, cars.size());
+    }
+    
+    @Test
+    public void carWithoutPreviousServiceCheckTest() {
+        ServiceCheck sc = carService.checkServiceInterval(car1);
+        Assert.assertNotNull(sc);
     }
 }

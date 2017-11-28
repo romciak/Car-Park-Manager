@@ -34,7 +34,7 @@ public class ServiceCheck implements Serializable {
     @Column(nullable = false)
     private boolean done;
         
-    @Column(nullable = false, name = "done_when")
+    @Column(nullable = true, name = "done_when")
     @Temporal(TemporalType.DATE)
     private Date doneWhen;
 
