@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.carparkmanager.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.DriveDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.ServiceCheckDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
-import cz.muni.fi.pa165.carparkmanager.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Drive;
 import java.util.Date;
@@ -28,9 +27,6 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private ServiceCheckDao serviceCheckDao;
-
-    @Autowired
-    private EmployeeDao employeeDao;
 
     @Autowired
     private DriveDao driveDao;

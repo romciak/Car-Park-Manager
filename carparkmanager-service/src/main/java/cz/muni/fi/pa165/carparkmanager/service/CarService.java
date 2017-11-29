@@ -1,9 +1,7 @@
 package cz.muni.fi.pa165.carparkmanager.service;
 
-import cz.muni.fi.pa165.carparkmanager.api.exceptions.CarparkmanagerException;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
-import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
 

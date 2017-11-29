@@ -111,7 +111,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(2, cars.size());
     }
     
-    @Test
+    @Test // TODO
     public void carWithoutPreviousServiceCheckTest() {
         ServiceCheck sc = carService.checkServiceInterval(car1);
         Assert.assertNotNull(sc);
