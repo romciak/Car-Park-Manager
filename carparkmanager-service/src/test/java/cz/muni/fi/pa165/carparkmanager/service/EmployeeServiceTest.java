@@ -1,7 +1,8 @@
 package cz.muni.fi.pa165.carparkmanager.service;
 
-import cz.muni.fi.pa165.carparkmanager.persistence.dao.ServiceCheckDao;
-import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
+import cz.muni.fi.pa165.carparkmanager.persistence.dao.EmployeeDao;
+import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
 import cz.muni.fi.pa165.carparkmanager.service.config.ServiceConfiguration;
 import java.util.Arrays;
 import java.util.Date;
@@ -28,73 +29,73 @@ import org.testng.annotations.Test;
 public class EmployeeServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
-    private ServiceCheckDao serviceCheckDao;
+    private EmployeeDao employeeDao;
 
     @InjectMocks
-    private final ServiceCheckService serviceCheckService = new ServiceCheckServiceImpl();
+    private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     @BeforeClass
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
 
-    private ServiceCheck sc1;
-    private ServiceCheck sc2;
+    private Employee em1;
+    private Employee em2;
 
     @BeforeMethod
     public void prepare() {
         Date date = new Date();
 
-        sc1 = new ServiceCheck();
-        sc1.setId(new Long(1));
-        sc1.setIntervalFrom(date);
-        sc1.setIntervalTo(date);
-        sc1.setDone(true);
-        sc1.setDoneWhen(date);
-
-        sc2 = new ServiceCheck();
-        sc2.setId(new Long(2));
-        sc2.setIntervalFrom(date);
-        sc2.setIntervalTo(date);
-        sc2.setDone(true);
-        sc2.setDoneWhen(date);
+        em1 = new Employee();
+        em1.setBirthDate(date);
+        em1.setClassification(ClassificationOfEmployeesEnum.MANAGER);
+        em1.setFirstname("John");
+        em1.setSurname("Doe");
+        em1.setId(new Long(1));
+        
+        em2 = new Employee();
+        em2.setBirthDate(date);
+        em2.setClassification(ClassificationOfEmployeesEnum.VOLUNTEER);
+        em2.setFirstname("Jane");
+        em2.setSurname("Doe");
+        em2.setId(new Long(2));
     }
 
     @Test
     public void createEmployeeTest() {
-        serviceCheckService.create(sc1);
-        verify(serviceCheckDao).create(sc1);
-        serviceCheckService.create(sc2);
-        verify(serviceCheckDao).create(sc2);
+        employeeService.create(em1);
+        verify(employeeDao).create(em1);
+        employeeService.create(em2);
+        verify(employeeDao).create(em2);
     }
 
     @Test
     public void updateEmployeeTest() {
-        serviceCheckService.update(sc1);
-        verify(serviceCheckDao).update(any(ServiceCheck.class));
+        employeeService.update(em1);
+        verify(employeeDao).update(any(Employee.class));
     }
 
     @Test
     public void deleteEmployeeTest() {
-        serviceCheckService.delete(sc1);
-        verify(serviceCheckDao).delete(any(ServiceCheck.class));
+        employeeService.delete(em1);
+        verify(employeeDao).delete(any(Employee.class));
     }
 
     @Test
     public void findEmployeeByIdTest() {
-        when(serviceCheckDao.findById(1L)).thenReturn(sc1);
-        Assert.assertEquals(serviceCheckService.findById(1L), sc1);
-        when(serviceCheckDao.findById(2L)).thenReturn(sc2);
-        Assert.assertEquals(serviceCheckService.findById(2L), sc2);
+        when(employeeDao.findById(1L)).thenReturn(em1);
+        Assert.assertEquals(employeeService.findById(1L), em1);
+        when(employeeDao.findById(2L)).thenReturn(em2);
+        Assert.assertEquals(employeeService.findById(2L), em2);
 
-        when(serviceCheckDao.findById(0L)).thenReturn(null);
-        Assert.assertEquals(serviceCheckService.findById(0L), null);
+        when(employeeDao.findById(0L)).thenReturn(null);
+        Assert.assertEquals(employeeService.findById(0L), null);
     }
 
     @Test
     public void findAllEmployees() {
-        when(serviceCheckDao.findAll()).thenReturn(Arrays.asList(sc1, sc2));
-        final List<ServiceCheck> serviceChecks = serviceCheckService.findAll();
-        Assert.assertEquals(2, serviceChecks.size());
+        when(employeeDao.findAll()).thenReturn(Arrays.asList(em1, em2));
+        final List<Employee> Employees = employeeService.findAll();
+        Assert.assertEquals(2, Employees.size());
     }
 }

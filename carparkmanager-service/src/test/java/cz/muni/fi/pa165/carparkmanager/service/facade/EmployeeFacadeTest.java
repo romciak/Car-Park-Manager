@@ -1,9 +1,10 @@
 package cz.muni.fi.pa165.carparkmanager.service.facade;
 
-import cz.muni.fi.pa165.carparkmanager.api.dto.ServiceCheckDTO;
-import cz.muni.fi.pa165.carparkmanager.api.facade.ServiceCheckFacade;
-import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
-import cz.muni.fi.pa165.carparkmanager.service.ServiceCheckService;
+import cz.muni.fi.pa165.carparkmanager.api.dto.EmployeeDTO;
+import cz.muni.fi.pa165.carparkmanager.api.facade.EmployeeFacade;
+import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
+import cz.muni.fi.pa165.carparkmanager.service.EmployeeService;
 import cz.muni.fi.pa165.carparkmanager.service.config.ServiceConfiguration;
 import cz.muni.fi.pa165.carparkmanager.service.utils.DataMapper;
 import cz.muni.fi.pa165.carparkmanager.service.utils.DataMapperImpl;
@@ -35,10 +36,10 @@ import org.testng.annotations.Test;
 public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
-    private ServiceCheckService serviceCheckService;
+    private EmployeeService employeeService;
 
     @InjectMocks
-    private final ServiceCheckFacade serviceCheckFacade = new ServiceCheckFacadeImpl();
+    private final EmployeeFacade employeeFacade = new EmployeeFacadeImpl();
 
     @Spy
     @Autowired
@@ -49,64 +50,64 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
         MockitoAnnotations.initMocks(this);
     }
 
-    private ServiceCheck serviceCheck;
+    private Employee employee;
 
-    private ServiceCheckDTO serviceCheckDTO;
+    private EmployeeDTO employeeDTO;
 
     @BeforeMethod
     public void prepare() {
 
         Date date = new Date();
 
-        serviceCheck = new ServiceCheck();
-        serviceCheck.setId(new Long(1));
-        serviceCheck.setIntervalFrom(date);
-        serviceCheck.setIntervalTo(date);
-        serviceCheck.setDone(true);
-        serviceCheck.setDoneWhen(date);
+        employee = new Employee();
+        employee.setBirthDate(date);
+        employee.setClassification(ClassificationOfEmployeesEnum.MANAGER);
+        employee.setFirstname("John");
+        employee.setSurname("Doe");
+        employee.setId(new Long(1));
 
-        serviceCheckDTO = new ServiceCheckDTO();
-        serviceCheckDTO.setId(new Long(1));
-        serviceCheckDTO.setIntervalFrom(date);
-        serviceCheckDTO.setIntervalTo(date);
-        serviceCheckDTO.setDone(true);
-        serviceCheckDTO.setDoneWhen(date);
+        employeeDTO = new EmployeeDTO();
+        employeeDTO.setBirthDate(date);
+        employeeDTO.setClassification(ClassificationOfEmployeesEnum.MANAGER);
+        employeeDTO.setFirstname("John");
+        employeeDTO.setSurname("Doe");
+        employeeDTO.setId(new Long(1));
 
     }
 
     @Test
     public void createService() {
-        serviceCheckFacade.create(serviceCheckDTO);
-        verify(serviceCheckService).create(any(ServiceCheck.class));
+        employeeFacade.create(employeeDTO);
+        verify(employeeService).create(any(Employee.class));
     }
 
     @Test
     public void updateTest() {
-        serviceCheckFacade.update(serviceCheckDTO);
-        verify(serviceCheckService).update(any(ServiceCheck.class));
+        employeeFacade.update(employeeDTO);
+        verify(employeeService).update(any(Employee.class));
     }
 
     @Test
     public void deleteTest() {
-        serviceCheckFacade.delete(serviceCheckDTO);
-        verify(serviceCheckService).delete(serviceCheck);
+        employeeFacade.delete(employeeDTO);
+        verify(employeeService).delete(employee);
     }
 
     @Test
     public void findById() {
-        when(serviceCheckService.findById(1L)).thenReturn(serviceCheck);
-        ServiceCheckDTO serviceCheckDTOx = serviceCheckFacade.findById(serviceCheck.getId());
-        assertNotNull(serviceCheckDTOx);
-        assertEquals(serviceCheckDTOx.getId(), serviceCheckDTO.getId());
+        when(employeeService.findById(1L)).thenReturn(employee);
+        EmployeeDTO employeeDTOx = employeeFacade.findById(employee.getId());
+        assertNotNull(employeeDTOx);
+        assertEquals(employeeDTOx.getId(), employeeDTO.getId());
     }
 
     @Test
     public void findAllServiceTest() {
-        when(serviceCheckService.findAll()).thenReturn(Arrays.asList(serviceCheck));
-        List<ServiceCheckDTO> drives = serviceCheckFacade.findAll();
-        verify(serviceCheckService).findAll();
-        assertNotNull(drives);
-        assertEquals(drives.get(0).getId(), serviceCheck.getId());
+        when(employeeService.findAll()).thenReturn(Arrays.asList(employee));
+        List<EmployeeDTO> employees = employeeFacade.findAll();
+        verify(employeeService).findAll();
+        assertNotNull(employees);
+        assertEquals(employees.get(0).getId(), employee.getId());
     }
 
 }
