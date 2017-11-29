@@ -52,8 +52,8 @@ public class DriveServiceTest extends AbstractTestNGSpringContextTests {
         drive1.setTimeTo(date);
 
         drive2 = new Drive();
-        drive2.setId(10L);
-        drive2.setKm(10);
+        drive2.setId(11L);
+        drive2.setKm(11);
         drive2.setTimeFrom(date);
         drive2.setTimeTo(date);
     }

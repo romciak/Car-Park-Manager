@@ -52,7 +52,7 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests {
         em1.setFirstname("John");
         em1.setSurname("Doe");
         em1.setId(new Long(1));
-        
+
         em2 = new Employee();
         em2.setBirthDate(date);
         em2.setClassification(ClassificationOfEmployeesEnum.VOLUNTEER);
