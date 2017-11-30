@@ -1,15 +1,23 @@
 package cz.muni.fi.pa165.carparkmanager.service;
 
+import cz.muni.fi.pa165.carparkmanager.api.exceptions.CarparkmanagerException;
 import cz.muni.fi.pa165.carparkmanager.service.config.ServiceConfiguration;
 import org.mockito.Mock;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.DriveDao;
+import cz.muni.fi.pa165.carparkmanager.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.ServiceCheckDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
+import cz.muni.fi.pa165.carparkmanager.persistence.entity.Drive;
+import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
@@ -31,19 +39,25 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private CarDao carDao;
-    
+
     @Mock
     private ServiceCheckDao serviceCheckDao;
-    
+
     @Mock
     private DriveDao driveDao;
 
+    @Mock
+    private EmployeeDao employeeDao;
+
     @InjectMocks
     private final CarService carService = new CarServiceImpl();
-    
+
+    @InjectMocks
+    private final EmployeeService employeeService = new EmployeeServiceImpl();
+
     @InjectMocks
     private final ServiceCheckService serviceCheckService = new ServiceCheckServiceImpl();
-    
+
     @InjectMocks
     private final DriveService driveService = new DriveServiceImpl();
 
@@ -54,10 +68,27 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
 
     private Car car1;
     private Car car2;
+    private ServiceCheck serviceCheck1;
+    private Employee emp;
+
 
     @BeforeMethod
     public void prepare() {
 
+        Date date = new Date();
+        Date datePlusSixMonths = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(datePlusSixMonths);
+        cal.set(Calendar.MONTH, (cal.get(Calendar.MONTH)+6));
+        datePlusSixMonths = cal.getTime();
+
+        serviceCheck1 = new ServiceCheck();
+        serviceCheck1.setId(10L);
+        serviceCheck1.setDone(true);
+        serviceCheck1.setDoneWhen(date);
+        serviceCheck1.setIntervalFrom(date);
+        serviceCheck1.setIntervalTo(datePlusSixMonths);
+        
         car1 = new Car();
         car2 = new Car();
 
@@ -75,6 +106,18 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         car2.setEngineType("Perfection");
         car2.setKmCount(30000);
         car2.setProductionYear("2016");
+        
+        List serviceChecks = new ArrayList();
+        serviceChecks.add(serviceCheck1);
+        car2.setServiceCheckList(serviceChecks);
+        
+        emp = new Employee();
+        emp.setBirthDate(new Date());
+        emp.setClassification(ClassificationOfEmployeesEnum.MANAGER);
+        emp.setFirstname("Roman");
+        emp.setSurname("Nedelka");
+        emp.setId(1L);
+        emp.setDriveList(null);
     }
 
     @Test
@@ -115,5 +158,33 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
     public void carWithoutPreviousServiceCheckTest() {
         ServiceCheck sc = carService.checkServiceInterval(car1);
         Assert.assertNotNull(sc);
+    }
+    
+    @Test
+    public void carWithPreviousServiceCheckTest() {
+        carDao.create(car2);
+        ServiceCheck sc = carService.checkServiceInterval(car2);
+        
+        Date today = new Date();
+        Date datePlusSixMonths = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(datePlusSixMonths);
+        cal.set(Calendar.MONTH, (cal.get(Calendar.MONTH)+6));
+        datePlusSixMonths = cal.getTime();
+        
+        //Assert.assertEquals(sc.getDoneWhen(), today);
+        Assert.assertEquals(sc.getIntervalFrom(), today);
+        Assert.assertEquals(sc.getIntervalTo(), datePlusSixMonths);
+    }
+    
+    @Test
+    public void reserveDriveTest() throws CarparkmanagerException {
+        employeeService.create(emp);
+        carService.create(car1);
+        System.out.println("car1=" + car1 + "\n emp=" + emp);
+        carService.reserveDrive(emp.getId(), car1.getId(), new Date(), new Date());
+        List<Drive> driveList = driveService.findAll();
+        System.out.println("driveList.size=" + driveList.size());
+        Assert.assertEquals(driveList, 1);
     }
 }

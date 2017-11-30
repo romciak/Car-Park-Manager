@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.carparkmanager.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Drive;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,8 +91,14 @@ public class CarServiceImpl implements CarService {
     public ServiceCheck checkServiceInterval(Car car){
         
         Date now = new Date();
-        long fourMonths = 4l * 30 * 24 * 60 * 60 * 1000;
         long week = 7l * 24 * 60 * 60 * 1000;
+        
+        Date today = new Date();
+        Date datePlusSixMonths = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(datePlusSixMonths);
+        cal.set(Calendar.MONTH, (cal.get(Calendar.MONTH)+6));
+        datePlusSixMonths = cal.getTime();
         
         List<ServiceCheck> carsServiceChecks = car.getServiceCheckList();
         
@@ -112,8 +119,8 @@ public class CarServiceImpl implements CarService {
                 }
                 
                 // create sc 6 months after last
-                Date from = new Date( lastCheckDate.getTime() + fourMonths);
-                Date to = new Date( lastCheckDate.getTime() + fourMonths + week);
+                Date from = today;
+                Date to = datePlusSixMonths;
                 
                 cancelDrives(from, to, car);
                 
