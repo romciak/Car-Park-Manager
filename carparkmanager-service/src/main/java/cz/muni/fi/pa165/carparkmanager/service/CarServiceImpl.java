@@ -127,7 +127,7 @@ public class CarServiceImpl implements CarService {
         ServiceCheck createdSC = createServiceCheck(from, to, car);
 
         return createdSC;
-    }
+}
 
     /**
      * Creates service check with the given time interval.
