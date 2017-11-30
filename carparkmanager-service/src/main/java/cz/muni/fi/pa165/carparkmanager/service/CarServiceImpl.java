@@ -1,17 +1,14 @@
 package cz.muni.fi.pa165.carparkmanager.service;
 
-import cz.muni.fi.pa165.carparkmanager.api.exceptions.CarparkmanagerException;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.DriveDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.ServiceCheckDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
-import cz.muni.fi.pa165.carparkmanager.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Drive;
-import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -27,16 +24,13 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarDao carDao;
-  
+
     @Autowired
     private ServiceCheckDao serviceCheckDao;
 
     @Autowired
-    private EmployeeDao employeeDao;
-
-    @Autowired
     private DriveDao driveDao;
-  
+
     @Override
     public void create(Car c) {
         try {
@@ -86,115 +80,100 @@ public class CarServiceImpl implements CarService {
             };
         }
     }
-    
+
     @Override
-    public ServiceCheck checkServiceInterval(Car car){
-        
-        Date now = new Date();
-        long week = 7l * 24 * 60 * 60 * 1000;
-        
-        Date today = new Date();
-        Date datePlusSixMonths = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(datePlusSixMonths);
-        cal.set(Calendar.MONTH, (cal.get(Calendar.MONTH)+6));
-        datePlusSixMonths = cal.getTime();
-        
-        List<ServiceCheck> carsServiceChecks = car.getServiceCheckList();
-        
-       
-        if ( carsServiceChecks != null && !carsServiceChecks.isEmpty()){
+    public ServiceCheck checkServiceInterval(Car car) {
 
-            Date lastCheckDate = carsServiceChecks.get(0).getDoneWhen();
-            if (lastCheckDate != null) {
-                // find lastes service date
-                for ( ServiceCheck service : carsServiceChecks) {
-                    if (service.getDone()) {
-                        if (service.getDoneWhen().after(lastCheckDate))
-                            lastCheckDate = service.getDoneWhen();
-                    } else {
-                        // service is planed
-                        return null;
-                    }
-                }
-                
-                // create sc 6 months after last
-                Date from = today;
-                Date to = datePlusSixMonths;
-                
-                cancelDrives(from, to, car);
-                
-                ServiceCheck createdSC = createServiceCheck( from, to, car);
-                
-                if (createdSC == null)
-                    throw new DataAccessException("check service interval failed") {};
-                
-                return createdSC;
-                
-            } else{
-                // service is planed
-                return null;
-            }
-            
-            
-            
-        } else {
-            // never in service => create service now
-            cancelDrives(now, new Date(now.getTime() + week), car);
-            
-            ServiceCheck createdSC = createServiceCheck(now, new Date(now.getTime() + week), car);
-            
-            if (createdSC == null)
-                throw new DataAccessException("check service interval failed") {};
+        Date currentTime = new Date();
+        Date currentTimePlusWeek = DateUtils.addWeeks(currentTime, 1);
 
+        List<ServiceCheck> carServiceCheckList = car.getServiceCheckList();
+
+        // car doesnt have any service checks planned => create one with range
+        // of one week from 'now' on and cancel all the planned drives within
+        // this week; employees cannot drive a car, that hasnt been checked
+        if (carServiceCheckList == null || carServiceCheckList.isEmpty()) {
+            cancelDrives(currentTime, currentTimePlusWeek, car);
+            ServiceCheck createdSC = createServiceCheck(currentTime, currentTimePlusWeek, car);
             return createdSC;
         }
-    }
-    
+
+        Date latestCheckDate = carServiceCheckList.get(0).getDoneWhen();
+        // check is planned, but not done - no need to plan the new one
+        if (latestCheckDate == null) {
+            return null;
+        }
+
+        // go through remaining checks and find the latest
+        for (ServiceCheck serviceCheck : carServiceCheckList) {
+            if (serviceCheck.getDone()) {
+                if (serviceCheck.getDoneWhen().after(latestCheckDate)) {
+                    latestCheckDate = serviceCheck.getDoneWhen();
+                }
+            } else {
+                // check is planned, but not done - no need to plan the new one
+                return null;
+            }
+        }
+
+        // all service checks are done, plan the new one 6 months after the last one
+        // range of the check = one week
+        Date latestCheckPlusSixMonths = DateUtils.addMonths(latestCheckDate, 6);
+        Date from = latestCheckPlusSixMonths;
+        Date to = DateUtils.addWeeks(latestCheckPlusSixMonths, 1);
+
+        cancelDrives(from, to, car);
+
+        ServiceCheck createdSC = createServiceCheck(from, to, car);
+
+        return createdSC;
+}
+
+    /**
+     * Creates service check with the given time interval.
+     *
+     * @param from start of the interval
+     * @param to end of the interval
+     * @param car car to plan the service check to
+     * @return created service check
+     */
     private ServiceCheck createServiceCheck(Date from, Date to, Car car) {
         ServiceCheck sc = new ServiceCheck();
         sc.setIntervalFrom(from);
         sc.setIntervalTo(to);
         sc.setCar(car);
         sc.setDone(false);
-        serviceCheckDao.create(sc);
+        try {
+            serviceCheckDao.create(sc);
+        } catch (Exception e) {
+            throw new DataAccessException("Cannot create ServiceCheck: " + e.getMessage(), e) {
+            };
+        }
         return sc;
     }
-    
+
+    /**
+     * Deletes drives, which are in time collision with a service check.
+     *
+     * @param from start of the time interval
+     * @param to end of the time interval
+     * @param car car, that drives belong to
+     */
     private void cancelDrives(Date from, Date to, Car car) {
         List<Drive> drives = car.getDriveList();
-        if (drives == null )
+        if (drives == null) {
             return;
-        // select drives with car
-        for (Drive drive: drives) {
+        }
+        // go through car's drives and check time intervals
+        for (Drive drive : drives) {
             // cancel drives
-            if (drive.getTimeFrom().after(from) && drive.getTimeFrom().before(to) // zacina v intervalu
-                    || drive.getTimeTo().after(from) && drive.getTimeTo().before(to) // konci v intervalu
-                    || drive.getTimeFrom().before(from) && drive.getTimeTo().after(to) // zacina pred a konci po
-                    || drive.getTimeFrom().equals(from) || drive.getTimeTo().equals(to) 
-                    ) {
+            if (drive.getTimeFrom().after(from) && drive.getTimeFrom().before(to)
+                    || drive.getTimeTo().after(from) && drive.getTimeTo().before(to)
+                    || drive.getTimeFrom().before(from) && drive.getTimeTo().after(to)
+                    || drive.getTimeFrom().equals(from) || drive.getTimeTo().equals(to)) {
                 driveDao.delete(drive);
             }
         }
-        
-    }
-    
-    @Override
-    public void reserveDrive(long employeeId, long carId, Date from, Date to) throws CarparkmanagerException {
-        Car car = carDao.findById(carId);
-        if (car.getKmCount() > KM_LIMIT) {
-            throw new CarparkmanagerException("Cannot lend a car - count of kilometers exceeded. ");
-        }
-
-        Employee employee = employeeDao.findById(employeeId);
-
-        Drive drive = new Drive();
-        drive.setCar(car);
-        drive.setEmployee(employee);
-        drive.setTimeFrom(from);
-        drive.setTimeTo(to);
-
-        driveDao.create(drive);
 
     }
 

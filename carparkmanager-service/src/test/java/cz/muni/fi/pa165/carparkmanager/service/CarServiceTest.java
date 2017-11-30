@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
@@ -154,7 +155,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(2, cars.size());
     }
     
-    @Test
+    @Test // TODO
     public void carWithoutPreviousServiceCheckTest() {
         ServiceCheck sc = carService.checkServiceInterval(car1);
         Assert.assertNotNull(sc);
@@ -172,19 +173,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         cal.set(Calendar.MONTH, (cal.get(Calendar.MONTH)+6));
         datePlusSixMonths = cal.getTime();
         
-        //Assert.assertEquals(sc.getDoneWhen(), today);
-        Assert.assertEquals(sc.getIntervalFrom(), today);
-        Assert.assertEquals(sc.getIntervalTo(), datePlusSixMonths);
-    }
-    
-    @Test
-    public void reserveDriveTest() throws CarparkmanagerException {
-        employeeService.create(emp);
-        carService.create(car1);
-        System.out.println("car1=" + car1 + "\n emp=" + emp);
-        carService.reserveDrive(emp.getId(), car1.getId(), new Date(), new Date());
-        List<Drive> driveList = driveService.findAll();
-        System.out.println("driveList.size=" + driveList.size());
-        Assert.assertEquals(driveList, 1);
+        Assert.assertEquals(sc.getIntervalFrom(), datePlusSixMonths);
+        Assert.assertEquals(sc.getIntervalTo(), DateUtils.addWeeks(datePlusSixMonths, 1));
     }
 }
