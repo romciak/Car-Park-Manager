@@ -9,8 +9,9 @@
         <module>carparkmanager-persistence</module>
         <module>carparkmanager-service</module>
         <module>carparkmanager-api</module>
-        <module>carparkmanager-rest</module>
         <module>carparkmanager-angular</module>
+    <module>carparkmanager-rest</module>
+        <module>carparkmanager-sample-data</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
