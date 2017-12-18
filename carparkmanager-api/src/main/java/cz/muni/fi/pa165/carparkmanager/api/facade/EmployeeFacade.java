@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.api.facade;
 
+import cz.muni.fi.pa165.carparkmanager.api.dto.EmployeeAuthenticateDTO;
 import cz.muni.fi.pa165.carparkmanager.api.dto.EmployeeDTO;
 import java.util.List;
 
@@ -44,4 +45,29 @@ public interface EmployeeFacade {
      * @return a list of all Employees
      */
     List<EmployeeDTO> findAll();
+    
+    /**
+     * Registers new User and create hash of his password
+     *
+     * @param employeeDTO Employee to register
+     * @param password unencrypted password
+     */
+    void registerUser(EmployeeDTO employeeDTO, String password);
+    
+    /**
+     * Tries to authenticate user
+     * 
+     * @param employee employee to authenticate
+     * @return true if authentification is succesfull, false otherwise
+     */
+    Boolean authenticate(EmployeeAuthenticateDTO employee);
+            
+    /**
+     * Checks whetever employee is an admin
+     * 
+     * @param employeeDTO employee to check
+     * @return true if employee is an admin, false otherwise
+     */
+    Boolean isAdmin(EmployeeDTO employeeDTO);
+            
 }

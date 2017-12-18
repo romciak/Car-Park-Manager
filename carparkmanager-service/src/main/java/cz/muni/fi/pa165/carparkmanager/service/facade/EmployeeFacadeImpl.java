@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.service.facade;
 
+import cz.muni.fi.pa165.carparkmanager.api.dto.EmployeeAuthenticateDTO;
 import cz.muni.fi.pa165.carparkmanager.api.dto.EmployeeDTO;
 import cz.muni.fi.pa165.carparkmanager.api.facade.EmployeeFacade;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
@@ -52,5 +53,47 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     public List<EmployeeDTO> findAll() {
         List<Employee> cars = employeeService.findAll();
         return mapper.mapTo(cars, EmployeeDTO.class);
+    }
+
+
+    @Override
+    public void registerUser(EmployeeDTO employeeDTO, String password) {
+        if (employeeDTO == null){
+            throw new IllegalArgumentException("employeeDTO is null");
+        }
+
+        Employee employee = mapper.mapTo(employeeDTO, Employee.class);
+
+        if (employee == null) {
+            throw new IllegalArgumentException("employee is null");
+        }
+
+        employeeService.registerEmployee(employee, password);
+    }
+    
+   
+    @Override
+    public Boolean authenticate(EmployeeAuthenticateDTO employee) {
+        if (employee == null)
+            throw new IllegalArgumentException("employee is null");
+        
+        return employeeService.authenticate(
+                employeeService.findById(employee.getId()),
+                employee.getPasswordHash()
+        );
+    }
+
+    @Override
+    public Boolean isAdmin(EmployeeDTO employeeDTO) {
+        if (employeeDTO == null) 
+            throw new IllegalArgumentException("EmployeeDTO is null");
+        
+        Employee employee = mapper.mapTo(employeeDTO, Employee.class);
+        
+        if (employee == null) {
+            throw new IllegalArgumentException("employee is null");
+        }
+        
+        return employeeService.isAdmin(employee);
     }
 }

@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.carparkmanager.persistence.entity;
 
 import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.UserRoleEnum;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,12 @@ public class Employee implements Serializable {
     @NotNull
     @Enumerated
     private ClassificationOfEmployeesEnum classification;
+    
+    @NotNull
+    private String passwordHash;
+    
+    @Enumerated
+    private UserRoleEnum userRole;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = {
         CascadeType.ALL
@@ -50,6 +57,10 @@ public class Employee implements Serializable {
         this.surname = surname;
         this.birthDate = birthDate;
         this.classification = classification;         
+    }
+   
+    public boolean isAdmin() {
+        return this.getUserRole().equals(UserRoleEnum.ADMINISTRATOR);
     }
     
     public Long getId() {
@@ -98,6 +109,22 @@ public class Employee implements Serializable {
 
     public void setDriveList(List<Drive> driveList) {
         this.driveList = driveList;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+    
+    public UserRoleEnum getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRoleEnum userRole) {
+        this.userRole = userRole;
     }
     
     @Override

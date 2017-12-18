@@ -46,4 +46,27 @@ public interface EmployeeService {
      * @return a list of all Employees
      */
     List<Employee> findAll();
+    
+    /**
+     * Create operation for EmployeeDao
+     * @throws NullPointerException when NullPointerException occurs
+     * @param employee Employee
+     * @param password unencrypted password
+     */
+    void registerEmployee(Employee employee, String password);
+    
+    /**
+     * Tries to authenticate employee
+     * @param employee employe to authenticate
+     * @param password password hash
+     * @return true if user is authenticated, false otherwise
+     */
+    boolean authenticate(Employee employee, String password);
+
+    /**
+     * Checks whether employee is admin
+     * @param employee employee to check
+     * @return true if employee is admin, false otherwise
+     */
+    boolean isAdmin(Employee employee);
 }
