@@ -22,11 +22,6 @@ public class DriveController {
     @Autowired
     private DriveFacade driveFacade;
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
-    public final String test() {
-        return "abc";
-    }
-
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final DriveDTO createDrive(@RequestBody DriveDTO drive) {
         driveFacade.create(drive);
