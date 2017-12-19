@@ -24,11 +24,17 @@ URL of the REST interface:
 http://localhost:8080/pa165/rest
 ```
 
-Available methods of the REST interface::
+Available methods of the REST interface:
 ```
 GET /drive/findall
 GET /drive/find/{id}
 DELETE /drive/delete/{id}
 POST /drive/create
 PUT /drive/update
+```
+
+Curl examples:
+```
+curl http://localhost:8080/pa165/rest/findall
+curl http://localhost:8080/pa165/rest/find/1
 ```
