@@ -27,7 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @Configuration
 @Import({ServiceConfiguration.class, SampleDataLoaderConf.class})
-@ComponentScan(basePackages = {"cz.fi.muni.pa165"})
+@ComponentScan(basePackages = {"cz.muni.fi.pa165"})
 public class RootWebContext extends WebMvcConfigurerAdapter {
 
     @Override

@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,9 +17,11 @@ public class CarDTO {
     private String engineType;
     private String productionYear;
     private int kmCount;
+    @JsonBackReference
     private List<ServiceCheckDTO> serviceCheckList;
+    @JsonBackReference
     private List<DriveDTO> driveList;
-    
+
     public CarDTO() {
     }
 
@@ -93,7 +96,7 @@ public class CarDTO {
     public void setDriveList(List<DriveDTO> driveList) {
         this.driveList = driveList;
     }
-    
+
     @Override
     public int hashCode() {
         int result = 17;
@@ -139,10 +142,10 @@ public class CarDTO {
     @Override
     public String toString() {
         return "CarDTO{" + "id=" + id + ", vin=" + vin + ", brand=" + brand
-                + ", type=" + type + ", engineType=" + engineType
-                + ", productionYear=" + productionYear + ", kmCount=" + kmCount
-                + ", serviceCheckList=" + serviceCheckList 
-                + ", driveList" + driveList + "}";
+                + ", type=" + type + ", engineType=" + engineType + ", productionYear="
+                + productionYear + ", kmCount=" + kmCount + ", serviceCheckList.size="
+                + (serviceCheckList == null ? "null" : serviceCheckList.size())
+                + ", driveList.size=" + (driveList == null ? "null" : driveList.size()) + '}';
     }
 
 }

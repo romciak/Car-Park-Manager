@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,7 +14,9 @@ public class DriveDTO {
     private Date timeFrom;
     private Date timeTo;
     private int km;
+    @JsonManagedReference
     private CarDTO car;
+    @JsonManagedReference
     private EmployeeDTO employee;
 
     public Long getId() {

@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.carparkmanager.rest.controllers;
 import cz.muni.fi.pa165.carparkmanager.api.dto.DriveDTO;
 import cz.muni.fi.pa165.carparkmanager.api.facade.DriveFacade;
 import java.util.List;
-import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +19,13 @@ import org.springframework.http.MediaType;
 @RequestMapping("/drive")
 public class DriveController {
 
-    @Inject
+    @Autowired
     private DriveFacade driveFacade;
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    public final String test() {
+        return "abc";
+    }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final DriveDTO createDrive(@RequestBody DriveDTO drive) {

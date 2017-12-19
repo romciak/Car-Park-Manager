@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
 import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
 import java.util.List;
@@ -16,6 +17,7 @@ public class EmployeeDTO {
     private String surname;
     private Date birthDate;
     private ClassificationOfEmployeesEnum classification;
+    @JsonBackReference
     private List<DriveDTO> driveList;
 
     public EmployeeDTO() {
