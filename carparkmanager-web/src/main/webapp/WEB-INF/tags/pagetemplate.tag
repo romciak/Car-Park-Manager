@@ -98,7 +98,7 @@
           -->
         <c:if test="${not empty authEmloyee}"> 
           <li>
-            <a href="#">Logged as ${authEmloyee.getEmail()}</a>
+            <a href="${pageContext.request.contextPath}/auth/logout">Logout ${authEmloyee.getEmail()}</a>
           </li>
         </c:if>
       </ul>

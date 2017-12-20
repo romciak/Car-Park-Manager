@@ -16,7 +16,7 @@
 <jsp:attribute name="body">
 
 
-    <form method="POST" action="${pageContext.request.contextPath}/login">
+    <form method="POST" action="${pageContext.request.contextPath}/auth/login">
         <h4><fmt:message key="login.title" /></h4>
 
         <label for="email"><fmt:message key="email"/></label>

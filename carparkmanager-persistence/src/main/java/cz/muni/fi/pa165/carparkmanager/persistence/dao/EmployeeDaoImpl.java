@@ -51,7 +51,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             throw new IllegalArgumentException("Cannot search for null e-mail");
 
         try {
-            return em.createQuery("SELECT u FROM User u where email =:email",
+            return em.createQuery("SELECT u FROM Employee u where email =:email",
                         Employee.class).setParameter("email", email).getSingleResult();
         } catch (NoResultException ex) {
             return null;
