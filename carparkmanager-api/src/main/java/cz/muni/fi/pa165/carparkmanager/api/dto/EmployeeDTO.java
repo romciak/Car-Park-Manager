@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.carparkmanager.api.dto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
 import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.UserRoleEnum;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ public class EmployeeDTO {
     private String surname;
     private Date birthDate;
     private ClassificationOfEmployeesEnum classification;
+    private UserRoleEnum userRole;
     @JsonBackReference
     private List<DriveDTO> driveList;
 
@@ -24,12 +26,13 @@ public class EmployeeDTO {
 
     }
 
-    public EmployeeDTO(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployeesEnum classification) {
+    public EmployeeDTO(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployeesEnum classification, UserRoleEnum userRole) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
         this.birthDate = birthDate;
         this.classification = classification;
+        this.userRole = userRole;
     }
 
     public Long getId() {
@@ -67,11 +70,19 @@ public class EmployeeDTO {
     public ClassificationOfEmployeesEnum getClassification() {
         return classification;
     }
-
-    public void setClassification(ClassificationOfEmployeesEnum classification) {
-        this.classification = classification;
+    
+    public void setClassification(ClassificationOfEmployeesEnum calassification) {
+        this.classification = calassification;
     }
 
+    public UserRoleEnum getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRoleEnum userRole) {
+        this.userRole = userRole;
+    }
+      
     public List<DriveDTO> getDriveList() {
         return driveList;
     }
@@ -88,6 +99,7 @@ public class EmployeeDTO {
         hash = 73 * hash + Objects.hashCode(this.firstname);
         hash = 73 * hash + Objects.hashCode(this.surname);
         hash = 73 * hash + Objects.hashCode(this.classification);
+        hash = 73 * hash + Objects.hashCode(this.userRole);
 
         return hash;
     }
@@ -122,6 +134,10 @@ public class EmployeeDTO {
         if (this.classification != other.getClassification()) {
             return false;
         }
+        if (!Objects.equals(this.userRole, other.getUserRole())) {
+            return false;
+        }
+        
 
         return true;
     }
@@ -129,6 +145,7 @@ public class EmployeeDTO {
     @Override
     public String toString() {
         return "EmployeeDTO{" + "id=" + id + ", firstName=" + firstname + ", surname=" + surname
-                + ", birthDate=" + birthDate + ", classification=" + classification + '}';
+                + ", birthDate=" + birthDate + ", classification=" + classification
+                + ", userRole=" + userRole + '}';
     }
 }

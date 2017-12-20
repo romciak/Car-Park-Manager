@@ -73,14 +73,20 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     
    
     @Override
-    public Boolean authenticate(EmployeeAuthenticateDTO employee) {
-        if (employee == null)
+    public EmployeeDTO authenticate(EmployeeAuthenticateDTO employeeAuth) {
+        if (employeeAuth == null)
             throw new IllegalArgumentException("employee is null");
         
-        return employeeService.authenticate(
-                employeeService.findById(employee.getId()),
-                employee.getPasswordHash()
-        );
+        Employee employee = employeeService.findByEmail(employeeAuth.getEmail());
+        if (employee == null) {
+            return null;
+        }
+        
+        if ( !employeeService.authenticate(employee, employeeAuth.getPasswordHash())) {
+            return null;
+        }
+        
+        return mapper.mapTo(employee, EmployeeDTO.class);
     }
 
     @Override

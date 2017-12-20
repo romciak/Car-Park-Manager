@@ -48,6 +48,13 @@ public interface EmployeeDao {
     public List<Employee> findAll ();
     
     /**
+     * Method to find a certain employee
+     * @param email
+     * @return found Employee
+     */
+    public Employee findByEmail (String email);
+    
+    /**
      * Method to get all employees with a certain fistname
      * @param firstname
      * @return a list of all Employees with a certain firstname

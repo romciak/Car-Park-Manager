@@ -7,17 +7,22 @@ package cz.muni.fi.pa165.carparkmanager.api.dto;
  * @author Jakub Juřena <445319>
  */
 public class EmployeeAuthenticateDTO {
-    private Long id;
+    private String email;
     private String passwordHash;
 
-    public Long getId() {
-        return id;
+    public EmployeeAuthenticateDTO(String email, String passwordHash) {
+        this.email = email;
+        this.passwordHash = passwordHash;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getEmail() {
+        return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     public String getPasswordHash() {
         return passwordHash;
     }
