@@ -36,7 +36,7 @@ public class Employee implements Serializable {
     @Enumerated
     private ClassificationOfEmployeesEnum classification;
     
-    @NotNull
+    
     private String passwordHash;
     
     @Enumerated
