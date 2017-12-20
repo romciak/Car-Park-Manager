@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.carparkmanager.persistence.entity.Drive;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.ServiceCheck;
 import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.UserRoleEnum;
 import cz.muni.fi.pa165.carparkmanager.service.CarService;
 import cz.muni.fi.pa165.carparkmanager.service.DriveService;
 import cz.muni.fi.pa165.carparkmanager.service.EmployeeService;
@@ -73,21 +74,32 @@ public class SampleDataLoaderFacadeImpl implements SampleDataLoaderFacade {
     private void createEmployees() throws ParseException {
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
-        createEmployee(format.parse("25.08.1976"), ClassificationOfEmployeesEnum.CLEANING_SERVICE, "Kevin", "McCallister");
-        createEmployee(format.parse("20.16.1990"), ClassificationOfEmployeesEnum.ENGINEER, "Zdeno", "Chara");
-        createEmployee(format.parse("31.01.1985"), ClassificationOfEmployeesEnum.VOLUNTEER, "Donald", "TheDuck");
-        createEmployee(format.parse("11.03.1977"), ClassificationOfEmployeesEnum.MANAGER, "Kiskaty", "Uze");
+        createEmployee(format.parse("25.08.1976"), ClassificationOfEmployeesEnum.CLEANING_SERVICE, "Kevin", "McCallister", "Kevko123");
+        createEmployee(format.parse("20.16.1990"), ClassificationOfEmployeesEnum.ENGINEER, "Zdeno", "Chara", "zdenozpopradu");
+        createEmployee(format.parse("31.01.1985"), ClassificationOfEmployeesEnum.VOLUNTEER, "Donald", "TheDuck", "URFired");
+        createEmployee(format.parse("11.03.1977"), ClassificationOfEmployeesEnum.MANAGER, "Kiskaty", "Uze", "najprezident");
     }
 
-    private void createEmployee(Date dateOfBirth, ClassificationOfEmployeesEnum classification, String firstname, String surname) {
+    private void createEmployee(Date dateOfBirth, ClassificationOfEmployeesEnum classification, String firstname, String surname, String pass) {
         Employee employee = new Employee();
 
         employee.setBirthDate(dateOfBirth);
         employee.setClassification(classification);
         employee.setFirstname(firstname);
         employee.setSurname(surname);
-
+        
+        // Setting admin role 
+        if (pass.equals("najprezident"))
+        {
+            employee.setUserRole(UserRoleEnum.ADMINISTRATOR);
+        }
+        else
+        {
+            employee.setUserRole(UserRoleEnum.USER);
+        }
+        
         employeeService.create(employee);
+        employeeService.registerEmployee(employee, pass);
         employeeList.add(employee);
     }
 
