@@ -1,5 +1,5 @@
 
-/**
+/*
  * 
  * Controllers
  */
@@ -12,7 +12,7 @@ app.controller('carsController', function($scope, $http, $rootScope, $timeout) {
 
 
 
-/**
+/*
  * 
  * Loading functions
  */
