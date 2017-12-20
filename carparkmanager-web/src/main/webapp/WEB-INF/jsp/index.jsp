@@ -13,9 +13,15 @@
 
 <my:pagetemplate>
     <jsp:attribute name="title"><f:message key="home.title"/></jsp:attribute>
-    <jsp:attribute name="list">
+    <jsp:attribute name="body">
 
-         <h2><f:message key="home.welcome"/><h2>
+        <h2><f:message key="home.welcome"/><h2>
+                
+        <c:if test="${empty employee}">
+            <p>
+                <f:message key="loginRequest"/> <a href="${pageContext.request.contextPath}/auth/login"><f:message key="loginRequest.button"/>
+            </p>
+        </c:if>
 
     </jsp:attribute>
 </my:pagetemplate>

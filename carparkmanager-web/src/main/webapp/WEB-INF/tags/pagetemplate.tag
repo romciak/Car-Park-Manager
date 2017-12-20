@@ -1,7 +1,7 @@
 <%@ tag pageEncoding="utf-8" dynamic-attributes="dynattrs" trimDirectiveWhitespaces="true" %>
 <%@ attribute name="title" required="false" %>
 <%@ attribute name="head" fragment="true" %>
-<%@ attribute name="list" fragment="true" %>
+<%@ attribute name="body" fragment="true" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -65,15 +65,20 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
           
-        <li><my:a href="/car" class="navbar-brand"><f:message key="cars"/></my:a></li>
-        <li><my:a href="/drive" class="navbar-brand"><f:message key="drives"/></my:a></li>
-        <li><my:a href="/service-check" class="navbar-brand"><f:message key="serviceChecks"/></my:a></li>
-        
         <!--
-            if isAdmin
+            show to logged users
         -->
-        <c:if test="${employee.isAdmin()}">
-            <li><my:a href="/employee" class="navbar-brand"><f:message key="employees"/></my:a></li>
+        <c:if test="${not empty employee}">
+            <li><my:a href="/car" class="navbar-brand"><f:message key="cars"/></my:a></li>
+            <li><my:a href="/drive" class="navbar-brand"><f:message key="drives"/></my:a></li>
+            <li><my:a href="/service-check" class="navbar-brand"><f:message key="serviceChecks"/></my:a></li>
+
+            <!--
+                show to admins
+            -->
+            <c:if test="${employee.isAdmin()}">
+                <li><my:a href="/employee" class="navbar-brand"><f:message key="employees"/></my:a></li>
+            </c:if>
         </c:if>
         
       </ul>
@@ -84,7 +89,7 @@
         <c:if test="${empty employee}">
 
           <li>
-              <my:a href="/login" class="navbar-brand"><span class="glyphicon glyphicon-log-in"></span></my:a>
+              <a href="${pageContext.request.contextPath}/auth/login"><span class="glyphicon glyphicon-log-in"></span></a>
           </li>
 
         </c:if>   
@@ -93,7 +98,7 @@
           -->
         <c:if test="${not empty employee}"> 
           <li>
-            <a href="#">Logged as ${employee.name}</a>
+            <a href="#">Logged as ${employee.getEmail()}</a>
           </li>
         </c:if>
       </ul>
@@ -111,7 +116,7 @@
 -->
 
 <div class="container bg-3 text-center">
-  <jsp:invoke fragment="list"/>   
+  <jsp:invoke fragment="body"/>   
 </div>
 
 

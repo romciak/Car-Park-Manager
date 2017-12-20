@@ -13,10 +13,10 @@
 
 <my:pagetemplate>
 <jsp:attribute name="title"><f:message key="login.title"/></jsp:attribute>
-<jsp:attribute name="list">
+<jsp:attribute name="body">
 
 
-    <form method="POST" action="${pageContext.request.contextPath}/auth/login">
+    <form method="POST" action="${pageContext.request.contextPath}/login">
         <h4><fmt:message key="login.title" /></h4>
 
         <label for="email"><fmt:message key="email"/></label>
