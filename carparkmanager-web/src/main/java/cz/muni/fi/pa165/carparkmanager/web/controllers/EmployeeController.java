@@ -25,12 +25,12 @@ public class EmployeeController {
     @Autowired
     private EmployeeFacade employeeFacade;
     
-    private String LOGIN_REDIRECT = "redirect:auth/login";
+    private String LOGIN_REDIRECT = "redirect:/auth/login";
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list (Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         EmployeeDTO authEmployee = (EmployeeDTO) request.getSession().getAttribute("authEmployee");
-        if (authEmployee == null) {
+        if (authEmployee == null || !authEmployee.isAdmin()) {
             log.warn("Failed. Unautorized");
             redirectAttributes.addFlashAttribute("alert_danger",
                     "Unauthorized.");

@@ -31,7 +31,7 @@ public class CarController {
     @Autowired
     private CarFacade carFacade;
     
-    private String LOGIN_REDIRECT = "redirect:auth/login";
+    private String LOGIN_REDIRECT = "redirect:/auth/login";
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list (Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {

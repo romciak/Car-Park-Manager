@@ -27,7 +27,9 @@ import javax.servlet.http.HttpSession;
 public class AuthenticationController {
 
     final static Logger log = LoggerFactory.getLogger(AuthenticationController.class);
-
+    
+    private String LOGIN_REDIRECT = "redirect:/auth/login";
+    
     @Autowired
     private EmployeeFacade employeeFacade;
 
@@ -59,7 +61,7 @@ public class AuthenticationController {
             log.warn("POST request: /auth/login; wrong login information, entered mail={}", email);
             redirectAttributes.addFlashAttribute(
                     "alert_danger", "Wrong mail or password of user");
-            return "redirect:/auth/login";
+            return LOGIN_REDIRECT;
         }
 
         employeeDTO.setClassification(employeeFacade.findById(employeeDTO.getId()).getClassification());
@@ -81,6 +83,6 @@ public class AuthenticationController {
         HttpSession session = req.getSession(true);
         session.removeAttribute("authEmployee");
         redirectAttributes.addFlashAttribute("alert_info", "You have been successfully logged out.");
-        return "redirect:/auth/login";
+        return LOGIN_REDIRECT;
     }
 }
