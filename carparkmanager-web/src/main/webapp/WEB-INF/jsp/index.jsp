@@ -17,17 +17,17 @@
 
         <h2><f:message key="home.welcome"/><h2>
                 
-        <c:if test="${empty authEmloyee}">
+        <c:if test="${empty authEmployee}">
             <p>
                 <f:message key="loginRequest"/> <a href="${pageContext.request.contextPath}/auth/login"><f:message key="loginRequest.button"/></a>
             </p>
         </c:if>
-        <c:if test="${not empty authEmloyee}">
+        <c:if test="${not empty authEmployee}">
             <p>
-                <f:message key="loggedAs"/> ${authEmloyee.getEmail()}
+                <f:message key="loggedAs"/> ${authEmployee.getEmail()}
             </p>
             <p>
-                <f:message key="yourUserRole"/> ${authEmloyee.getUserRole()}
+                <f:message key="yourUserRole"/> ${authEmployee.getUserRole()}
             </p>
         </c:if>
 

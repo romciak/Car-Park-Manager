@@ -68,7 +68,7 @@
         <!--
             show to logged users
         -->
-        <c:if test="${not empty authEmloyee}">
+        <c:if test="${not empty authEmployee}">
             <li><my:a href="/car" class="navbar-brand"><f:message key="cars"/></my:a></li>
             <li><my:a href="/drive" class="navbar-brand"><f:message key="drives"/></my:a></li>
             <li><my:a href="/service-check" class="navbar-brand"><f:message key="serviceChecks"/></my:a></li>
@@ -76,7 +76,7 @@
             <!--
                 show to admins
             -->
-            <c:if test="${authEmloyee.isAdmin()}">
+            <c:if test="${authEmployee.isAdmin()}">
                 <li><my:a href="/employee" class="navbar-brand"><f:message key="employees"/></my:a></li>
             </c:if>
         </c:if>
@@ -86,7 +86,7 @@
         <!--
             if not logged in
         -->
-        <c:if test="${empty authEmloyee}">
+        <c:if test="${empty authEmployee}">
 
           <li>
               <a href="${pageContext.request.contextPath}/auth/login"><span class="glyphicon glyphicon-log-in"></span></a>
@@ -96,7 +96,7 @@
           <!--
               ELSE
           -->
-        <c:if test="${not empty authEmloyee}"> 
+        <c:if test="${not empty authEmployee}"> 
           <li>
             <a href="${pageContext.request.contextPath}/auth/logout">Logout ${authEmloyee.getEmail()}</a>
           </li>

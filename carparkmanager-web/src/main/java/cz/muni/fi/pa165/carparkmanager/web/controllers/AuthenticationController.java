@@ -65,7 +65,7 @@ public class AuthenticationController {
         employeeDTO.setClassification(employeeFacade.findById(employeeDTO.getId()).getClassification());
 
         HttpSession session = req.getSession(true);
-        session.setAttribute("authEmloyee", employeeDTO);
+        session.setAttribute("authEmployee", employeeDTO);
         log.info("POST request: /auth/login; user with id {} has been logged in", employeeDTO.getId());
         redirectAttributes.addFlashAttribute("alert_info",
                 "User with name " + employeeDTO.getSurname() + " " + employeeDTO.getFirstname() + " has been logged in.");
