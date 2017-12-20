@@ -26,6 +26,9 @@
             <p>
                 <f:message key="loggedAs"/> ${authEmloyee.getEmail()}
             </p>
+            <p>
+                <f:message key="yourUserRole"/> ${authEmloyee.getUserRole()}
+            </p>
         </c:if>
 
     </jsp:attribute>
