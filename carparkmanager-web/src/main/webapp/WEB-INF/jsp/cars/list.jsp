@@ -29,14 +29,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Anna</td>
-        <td>Pitt</td>
-        <td>35</td>
-        <td>New York</td>
-        <td>USA</td>
-      </tr>
+        <c:forEach items="${cars}" var="car">
+            <tr>
+                <td><c:out value="${car.getVin()}"/></td>
+                <td><c:out value="${car.getBrand()}"/></td>
+                <td><c:out value="${car.getType()}"/></td>
+                <td><c:out value="${car.getEngineType()}"/></td>
+                <td><c:out value="${car.getProductionYear()}"/></td>
+                <td><c:out value="${car.getKmCount()}"/></td>
+            </tr>
+        </c:forEach>
     </tbody>
   </table>
   </div>

@@ -37,7 +37,7 @@ public class AuthenticationController {
             HttpServletRequest req,
             HttpServletResponse res) {
         log.info("GET request: /auth/login");
-        if (req.getSession().getAttribute("authUser") != null) {
+        if (req.getSession().getAttribute("authEmployee") != null) {
             return "redirect:/";
         }
         return "auth/login";

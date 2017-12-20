@@ -69,15 +69,15 @@
             show to logged users
         -->
         <c:if test="${not empty authEmployee}">
-            <li><my:a href="/car" class="navbar-brand"><f:message key="cars"/></my:a></li>
-            <li><my:a href="/drive" class="navbar-brand"><f:message key="drives"/></my:a></li>
-            <li><my:a href="/service-check" class="navbar-brand"><f:message key="serviceChecks"/></my:a></li>
+            <li><my:a href="/cars/list" class="navbar-brand"><f:message key="cars"/></my:a></li>
+            <li><my:a href="/drives/list" class="navbar-brand"><f:message key="drives"/></my:a></li>
+            <li><my:a href="/service-checks/list" class="navbar-brand"><f:message key="serviceChecks"/></my:a></li>
 
             <!--
                 show to admins
             -->
             <c:if test="${authEmployee.isAdmin()}">
-                <li><my:a href="/employee" class="navbar-brand"><f:message key="employees"/></my:a></li>
+                <li><my:a href="/employees/list" class="navbar-brand"><f:message key="employees"/></my:a></li>
             </c:if>
         </c:if>
         

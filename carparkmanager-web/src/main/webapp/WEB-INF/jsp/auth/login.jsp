@@ -19,13 +19,13 @@
     <form method="POST" action="${pageContext.request.contextPath}/auth/login">
         <h4><fmt:message key="login.title" /></h4>
 
-        <label for="email"><fmt:message key="email"/></label>
+        <label for="email"><f:message key="email"/></label>
         <input id="email" type="text" name="email" placeholder="example: user@gmail.com" required class="form-control"/>
 
-        <label for="password"><fmt:message key="login.password"/></label>
+        <label for="password"><f:message key="login.password"/></label>
         <input id="password" type="password" name="password" placeholder="Password" required class="form-control"/>
 
-        <button class="btn btn-lg btn-primary" type="submit" ><fmt:message key="login.button"/></button>
+        <button class="btn btn-lg btn-primary" type="submit" ><f:message key="login.button"/></button>
     </form>
 
 

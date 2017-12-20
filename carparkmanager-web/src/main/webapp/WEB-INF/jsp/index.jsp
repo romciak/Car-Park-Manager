@@ -1,7 +1,7 @@
 <%-- 
     Document   : home
     Created on : 18.12.2017, 21:28:04
-    Author     : Jakub Juřena
+    Author     : Jakub Juřena <445319>
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" %>
