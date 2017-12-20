@@ -35,6 +35,6 @@ PUT /drive/update
 
 Curl examples:
 ```
-curl http://localhost:8080/pa165/rest/findall
-curl http://localhost:8080/pa165/rest/find/1
+curl http://localhost:8080/pa165/rest/drive/findall
+curl http://localhost:8080/pa165/rest/drive/find/1
 ```
