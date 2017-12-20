@@ -27,6 +27,22 @@ webapp url:
 ```
 localhost:8080/pa165
 ```
+### Logins:
+Admin:
+
+email - "kiskaty@example.com", psw - "najprezident"
+
+
+Employees:
+
+email - "donald@example.com", psw - "URFired"
+
+email - "zdeno@example.com", psw - "zdenozpopradu"
+
+email - "kevin@example.com", psw - "Kevko123"
+
+
+
 
 ## Building the project and accessing REST interface
 
