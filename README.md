@@ -4,6 +4,30 @@ Car-Park-Manager was created as a team project at the Faculty of Informatics at 
 
 It's a multi-tiered application developed in Java. Modern technologies like Spring, REST API, AngularJS etc. are used.
 
+## Building the project and accesing webapp
+
+Build:
+```
+cd carparkmanager
+mvn clean install
+```
+
+Start tomcat:
+```
+cd carparkmanager-web
+mvn
+```
+or
+```
+cd carparkmanager-web
+mvn tomcat7:run
+```
+
+webapp url:
+```
+localhost:8080/pa165
+```
+
 ## Building the project and accessing REST interface
 
 Build:
