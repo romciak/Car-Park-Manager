@@ -32,7 +32,7 @@ import javax.validation.Validator;
 @EnableWebMvc
 @Configuration
 @Import({SampleDataLoaderConf.class})
-@ComponentScan(basePackages = "fi.muni.cz.pa165.carparkmanager.controllers.")
+@ComponentScan(basePackages = "fi.muni.cz.pa165.carparkmanager.controllers")
 public class MySpringMvcConfig extends WebMvcConfigurerAdapter {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MySpringMvcConfig.class);

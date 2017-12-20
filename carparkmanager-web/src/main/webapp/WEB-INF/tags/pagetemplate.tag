@@ -1,13 +1,13 @@
 <%@ tag pageEncoding="utf-8" dynamic-attributes="dynattrs" trimDirectiveWhitespaces="true" %>
 <%@ attribute name="title" required="false" %>
 <%@ attribute name="head" fragment="true" %>
-<%@ attribute name="body" fragment="true" required="true" %>
+<%@ attribute name="list" fragment="true" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${pageContext.request.locale}">
 <head>
   <title><c:out value="${title}"/></title>
   <meta charset="utf-8">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <jsp:invoke fragment="header"/>
+  <jsp:invoke fragment="head"/>
   <style>
       
     /* Remove the navbar's default margin-bottom and rounded borders */ 
@@ -110,11 +110,7 @@
 
 -->
 
-<div class="container bg-3 text-center">    
-  <c:if test="${not empty title}">
-    <h1><c:out value="${title}"/></h1>
-  </c:if>
-  
+<div class="container bg-3 text-center">
   <jsp:invoke fragment="list"/>   
 </div>
 

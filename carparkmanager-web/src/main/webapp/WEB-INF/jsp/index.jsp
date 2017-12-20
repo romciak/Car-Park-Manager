@@ -12,8 +12,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <my:pagetemplate>
-    <jsp:attribute name="title"><fmt:message key="home.title"/></jsp:attribute>
-    <jsp:attribute name="body">
+    <jsp:attribute name="title"><f:message key="home.title"/></jsp:attribute>
+    <jsp:attribute name="list">
 
          <h2><f:message key="home.welcome"/><h2>
 
