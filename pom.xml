@@ -10,7 +10,6 @@
         <module>carparkmanager-persistence</module>
         <module>carparkmanager-service</module>
         <module>carparkmanager-api</module>
-        <module>carparkmanager-angular</module>
     <module>carparkmanager-rest</module>
         <module>carparkmanager-sample-data</module>
     <module>carparkmanager-web</module>
