@@ -18,6 +18,7 @@ public class EmployeeDTO {
     private String surname;
     private Date birthDate;
     private ClassificationOfEmployeesEnum classification;
+    private String email;
     private UserRoleEnum userRole;
     @JsonBackReference
     private List<DriveDTO> driveList;
@@ -26,13 +27,18 @@ public class EmployeeDTO {
 
     }
 
-    public EmployeeDTO(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployeesEnum classification, UserRoleEnum userRole) {
+    public EmployeeDTO(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployeesEnum classification, String email, UserRoleEnum userRole) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
         this.birthDate = birthDate;
         this.classification = classification;
+        this.email = email;
         this.userRole = userRole;
+    }
+    
+    public boolean isAdmin() {
+        return userRole.equals(UserRoleEnum.ADMINISTRATOR);
     }
 
     public Long getId() {
@@ -73,6 +79,14 @@ public class EmployeeDTO {
     
     public void setClassification(ClassificationOfEmployeesEnum calassification) {
         this.classification = calassification;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public UserRoleEnum getUserRole() {
