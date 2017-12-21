@@ -21,13 +21,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private EntityManager em;
     
     @Override
-    public void create(Employee employee) {
+    public Long create(Employee employee){
         em.persist(employee);
+        em.flush();
+        return employee.getId();
     }
 
     @Override
-    public void update(Employee employee) {
-        em.merge(employee);
+    public Employee update(Employee employee) {
+        return em.merge(employee);
     }
 
     @Override
@@ -77,5 +79,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return em.createQuery("SELECT e FROM Employee e WHERE e.classification = :classification")
                 .setParameter("classification", classification)
                 .getResultList();
+    }
+    
+    @Override
+    public Employee findByLogin(String login) {
+        if (login == null || login.isEmpty())
+            throw new IllegalArgumentException("Cannot search for null login");
+        try{
+            return em.createQuery("select e from Employee e where e.login = :login", Employee.class)
+                .setParameter("login", login).getSingleResult();
+        }catch(NoResultException noResult){
+            return null;
+        }
     }
 }

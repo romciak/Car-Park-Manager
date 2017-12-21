@@ -19,14 +19,14 @@ public interface EmployeeDao {
      * Method to create an employee
      * @param employee
      */
-    public void create (Employee employee);
+    public Long create (Employee employee);
     
     
     /**
      * Method to update an employee
      * @param employee
      */    
-    public void update (Employee employee); 
+    public Employee update (Employee employee); 
     
     /**
      * Method to delete an employee
@@ -74,4 +74,6 @@ public interface EmployeeDao {
      * @return a list of all Employees with a certain classification
      */
     List<Employee> findByClassification(ClassificationOfEmployeesEnum classification);
+    
+    public Employee findByLogin(String login);
 }

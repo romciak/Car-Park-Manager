@@ -36,6 +36,9 @@ public class Employee implements Serializable {
     @Enumerated
     private ClassificationOfEmployeesEnum classification;
     
+    @NotNull
+    private String login;
+    
     private String email; 
     
     private String passwordHash;
@@ -60,9 +63,11 @@ public class Employee implements Serializable {
         this.classification = classification;         
     }
     
-    public Employee(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployeesEnum classification, String email) {
+    public Employee(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployeesEnum classification, String email, String l, String p) {
         this(id, firstname, surname, birthDate, classification);
         this.email= email;
+        this.login = l;
+        this.passwordHash = p;
     }
    
     public boolean isAdmin() {
@@ -91,6 +96,14 @@ public class Employee implements Serializable {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+    
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public Date getBirthDate() {

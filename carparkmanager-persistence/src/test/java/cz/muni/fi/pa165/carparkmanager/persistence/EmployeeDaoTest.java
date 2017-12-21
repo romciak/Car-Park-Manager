@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.carparkmanager.persistence.conf.PersistenceApplicationCo
 import cz.muni.fi.pa165.carparkmanager.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
 import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
+import cz.muni.fi.pa165.carparkmanager.persistence.enums.UserRoleEnum;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         employee1.setClassification(ClassificationOfEmployeesEnum.ENGINEER);
         employee1.setFirstname("Jan");
         employee1.setSurname("Novak");
+        employee1.setLogin("emp.one");
+        employee1.setUserRole(UserRoleEnum.USER);
         employeeDao.create(employee1);
     }
 
@@ -79,18 +82,5 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         employee1.setFirstname("Jofo");
         employeeDao.update(employee1);
         Assert.assertEquals(employee1.getFirstname(), "Jofo");
-    }
-    
-    @Test
-    public void testCreateEmployee() throws ParseException {
-        Employee employee = new Employee();
-        employee.setBirthDate(sdf.parse("01.01.1980"));
-        employee.setClassification(ClassificationOfEmployeesEnum.ENGINEER);
-        employee.setFirstname("Roko");
-        employee.setSurname("Frk");
-        employeeDao.create(employee);
-        
-        Assert.assertNotNull(employee.getId());
-    }
-    
+    }    
 }

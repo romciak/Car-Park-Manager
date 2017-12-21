@@ -51,6 +51,7 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests {
         em1.setClassification(ClassificationOfEmployeesEnum.MANAGER);
         em1.setFirstname("John");
         em1.setSurname("Doe");
+        em1.setLogin("jonhny");
         em1.setId(new Long(1));
 
         em2 = new Employee();
@@ -63,10 +64,8 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void createEmployeeTest() {
-        employeeService.create(em1);
+        employeeService.create(em1, "hashPassword123");  
         verify(employeeDao).create(em1);
-        employeeService.create(em2);
-        verify(employeeDao).create(em2);
     }
 
     @Test

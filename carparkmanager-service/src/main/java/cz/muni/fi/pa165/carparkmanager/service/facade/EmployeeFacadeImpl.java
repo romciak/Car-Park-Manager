@@ -26,9 +26,9 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     private DataMapper mapper;
 
     @Override
-    public void create(EmployeeDTO eDTO) {
-        Employee employee = mapper.mapTo(eDTO, Employee.class);
-        employeeService.create(employee);
+    public Long create(EmployeeDTO employeeDto, String password) {
+        Employee employeeEntity = mapper.mapTo(employeeDto, Employee.class);
+        return employeeService.create(employeeEntity, password);
     }
 
     @Override
@@ -38,9 +38,10 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     }
 
     @Override
-    public void update(EmployeeDTO eDTO) {
-        Employee employee = mapper.mapTo(eDTO, Employee.class);
-        employeeService.update(employee);
+    public EmployeeDTO update(EmployeeDTO eDTO) {
+        Employee employeeEntity;
+        employeeEntity = employeeService.update(mapper.mapTo(eDTO, Employee.class));
+        return mapper.mapTo(employeeEntity, EmployeeDTO.class);
     }
 
     @Override
@@ -101,5 +102,16 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
         }
         
         return employeeService.isAdmin(employee);
+    }
+    
+    @Override
+    public EmployeeDTO findEmployeeByLogin(String login) {
+       Employee employee = employeeService.findEmployeeByLogin(login);
+       if(employee == null){
+           return null;
+                   }
+       else{
+           return mapper.mapTo(employee, EmployeeDTO.class);
+       }
     }
 }

@@ -22,19 +22,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDao employeeDao;
 
     @Override
-    public void create(Employee employee) {
-        try {
-            employeeDao.create(employee);
-        } catch (Exception e) {
-            throw new DataAccessException("Cannot create employee: " + e.getMessage(), e) {
-            };
+    public Long create(Employee employee, String password) {
+        try{
+            employee.setPasswordHash(createHash(password));
+            return employeeDao.create(employee);
+        }
+        catch (Exception e) {
+            throw new DataAccessException("Cannot create employee: " + e.getMessage(), e) {};
         }
     }
 
     @Override
-    public void update(Employee employee) {
+    public Employee update(Employee employee) {
         try {
-            employeeDao.update(employee);
+            return employeeDao.update(employee);
         } catch (Exception e) {
             throw new DataAccessException("Cannot update employee: " + e.getMessage(), e) {
             };
@@ -81,6 +82,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    @Override
+    public Employee findEmployeeByLogin(String login) {
+        return employeeDao.findByLogin(login);
+    }
+    
     @Override
     public void registerEmployee(Employee employee, String password) {
         try {
