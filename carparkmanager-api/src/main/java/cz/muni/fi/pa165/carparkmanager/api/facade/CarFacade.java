@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.api.facade;
 
+import cz.muni.fi.pa165.carparkmanager.api.dto.CarCreateDTO;
 import cz.muni.fi.pa165.carparkmanager.api.dto.CarDTO;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface CarFacade {
      *
      * @param c
      */
-    void create(CarDTO c);
+    void create(CarCreateDTO c);
 
     /**
      * Removes record from DB.

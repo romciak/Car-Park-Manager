@@ -107,6 +107,34 @@
 </nav>
   
 
+<!-- 
+    ALERTS
+-->
+<c:if test="${not empty alert_danger}">
+    <div class="alert alert-danger fade in" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <c:out value="${alert_danger}"/>
+    </div>
+</c:if>
+<c:if test="${not empty alert_info}">
+    <div class="alert alert-info fade in" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <c:out value="${alert_info}"/>
+    </div>
+</c:if>
+<c:if test="${not empty alert_success}">
+    <div class="alert alert-success fade in" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <c:out value="${alert_success}"/>
+    </div>
+</c:if>
+<c:if test="${not empty alert_warning}">
+    <div class="alert alert-warning fade in" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <c:out value="${alert_warning}"/>
+    </div>
+</c:if>
 
 
 <!--

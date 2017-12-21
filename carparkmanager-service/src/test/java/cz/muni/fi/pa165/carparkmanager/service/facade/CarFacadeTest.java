@@ -93,12 +93,12 @@ public class CarFacadeTest extends AbstractTestNGSpringContextTests {
         carDto2.setProductionYear(car2.getProductionYear());
 
     }
-
+/*
     @Test
     public void createService() {
         carFacade.create(carDto1);
         verify(carService).create(any(Car.class));
-    }
+    }*/
 
     @Test
     public void updateTest() {

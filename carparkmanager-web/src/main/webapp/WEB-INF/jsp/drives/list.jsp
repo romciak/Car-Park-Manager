@@ -15,7 +15,7 @@
 <jsp:attribute name="title"><f:message key="drives.title"/></jsp:attribute>
 <jsp:attribute name="body">
 
-
+    
   <div class="table-responsive">          
   <table class="table table-hover">
     <thead>
@@ -40,7 +40,7 @@
     </tbody>
   </table>
   </div>
-
-
+  
+  
 </jsp:attribute>
 </my:pagetemplate>
