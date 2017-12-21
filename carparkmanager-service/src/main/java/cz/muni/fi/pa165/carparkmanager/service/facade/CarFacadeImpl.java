@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carparkmanager.service.facade;
 
+import cz.muni.fi.pa165.carparkmanager.api.dto.CarCreateDTO;
 import cz.muni.fi.pa165.carparkmanager.api.dto.CarDTO;
 import cz.muni.fi.pa165.carparkmanager.api.facade.CarFacade;
 import cz.muni.fi.pa165.carparkmanager.persistence.entity.Car;
@@ -25,7 +26,7 @@ public class CarFacadeImpl implements CarFacade {
     private DataMapper mapper;
 
     @Override
-    public void create(CarDTO c) {
+    public void create(CarCreateDTO c) {
         Car car = mapper.mapTo(c, Car.class);
         carService.create(car);
     }

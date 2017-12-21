@@ -48,6 +48,13 @@ public interface EmployeeService {
     List<Employee> findAll();
     
     /**
+     * Method to find a certain employee
+     * @param email
+     * @return found Employee
+     */
+    public Employee findByEmail (String email);
+    
+    /**
      * Create operation for EmployeeDao
      * @throws NullPointerException when NullPointerException occurs
      * @param employee Employee

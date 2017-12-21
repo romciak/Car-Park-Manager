@@ -1,13 +1,13 @@
 <%@ tag pageEncoding="utf-8" dynamic-attributes="dynattrs" trimDirectiveWhitespaces="true" %>
 <%@ attribute name="title" required="false" %>
 <%@ attribute name="head" fragment="true" %>
-<%@ attribute name="body" fragment="true" required="true" %>
+<%@ attribute name="body" fragment="true" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${pageContext.request.locale}">
 <head>
   <title><c:out value="${title}"/></title>
   <meta charset="utf-8">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <jsp:invoke fragment="header"/>
+  <jsp:invoke fragment="head"/>
   <style>
       
     /* Remove the navbar's default margin-bottom and rounded borders */ 
@@ -65,15 +65,20 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
           
-        <li><my:a href="/car" class="navbar-brand"><f:message key="cars"/></my:a></li>
-        <li><my:a href="/drive" class="navbar-brand"><f:message key="drives"/></my:a></li>
-        <li><my:a href="/service-check" class="navbar-brand"><f:message key="serviceChecks"/></my:a></li>
-        
         <!--
-            if isAdmin
+            show to logged users
         -->
-        <c:if test="${employee.isAdmin()}">
-            <li><my:a href="/employee" class="navbar-brand"><f:message key="employees"/></my:a></li>
+        <c:if test="${not empty authEmployee}">
+            <li><my:a href="/cars/list" class="navbar-brand"><f:message key="cars"/></my:a></li>
+            <li><my:a href="/drives/list" class="navbar-brand"><f:message key="drives"/></my:a></li>
+            <li><my:a href="/service-checks/list" class="navbar-brand"><f:message key="serviceChecks"/></my:a></li>
+
+            <!--
+                show to admins
+            -->
+            <c:if test="${authEmployee.isAdmin()}">
+                <li><my:a href="/employees/list" class="navbar-brand"><f:message key="employees"/></my:a></li>
+            </c:if>
         </c:if>
         
       </ul>
@@ -81,19 +86,19 @@
         <!--
             if not logged in
         -->
-        <c:if test="${empty employee}">
+        <c:if test="${empty authEmployee}">
 
           <li>
-              <my:a href="/login" class="navbar-brand"><span class="glyphicon glyphicon-log-in"></span></my:a>
+              <a href="${pageContext.request.contextPath}/auth/login"><span class="glyphicon glyphicon-log-in"></span></a>
           </li>
 
         </c:if>   
           <!--
               ELSE
           -->
-        <c:if test="${not empty employee}"> 
+        <c:if test="${not empty authEmployee}"> 
           <li>
-            <a href="#">Logged as ${employee.name}</a>
+            <a href="${pageContext.request.contextPath}/auth/logout">Logout ${authEmloyee.getEmail()}</a>
           </li>
         </c:if>
       </ul>
@@ -102,6 +107,34 @@
 </nav>
   
 
+<!-- 
+    ALERTS
+-->
+<c:if test="${not empty alert_danger}">
+    <div class="alert alert-danger fade in" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <c:out value="${alert_danger}"/>
+    </div>
+</c:if>
+<c:if test="${not empty alert_info}">
+    <div class="alert alert-info fade in" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <c:out value="${alert_info}"/>
+    </div>
+</c:if>
+<c:if test="${not empty alert_success}">
+    <div class="alert alert-success fade in" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <c:out value="${alert_success}"/>
+    </div>
+</c:if>
+<c:if test="${not empty alert_warning}">
+    <div class="alert alert-warning fade in" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <c:out value="${alert_warning}"/>
+    </div>
+</c:if>
 
 
 <!--
@@ -110,12 +143,8 @@
 
 -->
 
-<div class="container bg-3 text-center">    
-  <c:if test="${not empty title}">
-    <h1><c:out value="${title}"/></h1>
-  </c:if>
-  
-  <jsp:invoke fragment="list"/>   
+<div class="container bg-3 text-center">
+  <jsp:invoke fragment="body"/>   
 </div>
 
 

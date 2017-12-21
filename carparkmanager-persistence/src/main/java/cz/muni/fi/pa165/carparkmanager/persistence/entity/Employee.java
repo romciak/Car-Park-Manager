@@ -36,6 +36,7 @@ public class Employee implements Serializable {
     @Enumerated
     private ClassificationOfEmployeesEnum classification;
     
+    private String email; 
     
     private String passwordHash;
     
@@ -57,6 +58,11 @@ public class Employee implements Serializable {
         this.surname = surname;
         this.birthDate = birthDate;
         this.classification = classification;         
+    }
+    
+    public Employee(Long id, String firstname, String surname, Date birthDate, ClassificationOfEmployeesEnum classification, String email) {
+        this(id, firstname, surname, birthDate, classification);
+        this.email= email;
     }
    
     public boolean isAdmin() {
@@ -111,6 +117,14 @@ public class Employee implements Serializable {
         this.driveList = driveList;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     public String getPasswordHash() {
         return passwordHash;
     }
@@ -135,6 +149,7 @@ public class Employee implements Serializable {
         hash = 73 * hash + Objects.hashCode(this.firstname);
         hash = 73 * hash + Objects.hashCode(this.surname);
         hash = 73 * hash + Objects.hashCode(this.classification);
+        hash = 73 * hash + Objects.hashCode(this.userRole);
 
         return hash;
     }
@@ -167,6 +182,9 @@ public class Employee implements Serializable {
             return false;
         }
         if (this.classification != other.getClassification()) {
+            return false;
+        }
+        if (!Objects.equals(this.userRole, other.getUserRole())) {
             return false;
         }
         

@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.carparkmanager.persistence.entity.Employee;
 import cz.muni.fi.pa165.carparkmanager.persistence.enums.ClassificationOfEmployeesEnum;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public List<Employee> findAll() {
         return em.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
+    }
+    
+    @Override
+    public Employee findByEmail(String email) {
+        if (email == null || email.isEmpty())
+            throw new IllegalArgumentException("Cannot search for null e-mail");
+
+        try {
+            return em.createQuery("SELECT u FROM Employee u where email =:email",
+                        Employee.class).setParameter("email", email).getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
     @Override

@@ -60,7 +60,7 @@ public interface EmployeeFacade {
      * @param employee employee to authenticate
      * @return true if authentification is succesfull, false otherwise
      */
-    Boolean authenticate(EmployeeAuthenticateDTO employee);
+    EmployeeDTO authenticate(EmployeeAuthenticateDTO employee);
             
     /**
      * Checks whetever employee is an admin

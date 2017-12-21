@@ -70,6 +70,16 @@ public class EmployeeServiceImpl implements EmployeeService {
             };
         }
     }
+    
+    @Override
+    public Employee findByEmail(String email){
+        try {
+            return employeeDao.findByEmail(email);
+        } catch (Exception e) {
+            throw new DataAccessException("Cannot find employee by Email: " + e.getMessage(), e) {
+            };
+        }
+    }
 
     @Override
     public void registerEmployee(Employee employee, String password) {

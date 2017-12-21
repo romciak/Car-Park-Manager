@@ -1,7 +1,7 @@
 <%-- 
     Document   : home
     Created on : 18.12.2017, 21:28:04
-    Author     : Jakub Juřena
+    Author     : Jakub Juřena <445319>
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" %>
@@ -12,10 +12,24 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <my:pagetemplate>
-    <jsp:attribute name="title"><fmt:message key="home.title"/></jsp:attribute>
+    <jsp:attribute name="title"><f:message key="home.title"/></jsp:attribute>
     <jsp:attribute name="body">
 
-         <h2><f:message key="home.welcome"/><h2>
+        <h2><f:message key="home.welcome"/><h2>
+                
+        <c:if test="${empty authEmployee}">
+            <p>
+                <f:message key="loginRequest"/> <a href="${pageContext.request.contextPath}/auth/login"><f:message key="loginRequest.button"/></a>
+            </p>
+        </c:if>
+        <c:if test="${not empty authEmployee}">
+            <p>
+                <f:message key="loggedAs"/> ${authEmployee.getEmail()}
+            </p>
+            <p>
+                <f:message key="yourUserRole"/> ${authEmployee.getUserRole()}
+            </p>
+        </c:if>
 
     </jsp:attribute>
 </my:pagetemplate>
