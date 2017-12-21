@@ -16,14 +16,14 @@ public interface EmployeeService {
      *
      * @param employee
      */
-    void create(Employee employee);
+    public Long create(Employee employee, String password);
 
     /**
      * Method to update an employee
      *
      * @param employee
      */
-    void update(Employee employee);
+    public Employee update(Employee employee);
 
     /**
      * Method to delete an employee
@@ -76,4 +76,6 @@ public interface EmployeeService {
      * @return true if employee is admin, false otherwise
      */
     boolean isAdmin(Employee employee);
+    
+    public Employee findEmployeeByLogin(String login);
 }

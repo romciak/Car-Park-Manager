@@ -15,14 +15,14 @@ public interface EmployeeFacade {
      *
      * @param employee
      */
-    void create(EmployeeDTO employee);
+    public Long create(EmployeeDTO employeeDto, String password);
 
     /**
      * Method to update an employee
      *
      * @param employee
      */
-    void update(EmployeeDTO employee);
+    public EmployeeDTO update(EmployeeDTO eDTO);
 
     /**
      * Method to delete an employee
@@ -69,5 +69,6 @@ public interface EmployeeFacade {
      * @return true if employee is an admin, false otherwise
      */
     Boolean isAdmin(EmployeeDTO employeeDTO);
-            
+    
+    public EmployeeDTO findEmployeeByLogin(String login);           
 }

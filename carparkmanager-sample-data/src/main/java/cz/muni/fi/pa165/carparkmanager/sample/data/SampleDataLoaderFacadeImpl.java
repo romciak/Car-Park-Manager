@@ -74,13 +74,13 @@ public class SampleDataLoaderFacadeImpl implements SampleDataLoaderFacade {
     private void createEmployees() throws ParseException {
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
-        createEmployee(format.parse("25.08.1976"), ClassificationOfEmployeesEnum.CLEANING_SERVICE, "Kevin", "McCallister", "kevin@example.com", "Kevko123");
-        createEmployee(format.parse("20.16.1990"), ClassificationOfEmployeesEnum.ENGINEER, "Zdeno", "Chara", "zdeno@example.com", "zdenozpopradu");
-        createEmployee(format.parse("31.01.1985"), ClassificationOfEmployeesEnum.VOLUNTEER, "Donald", "TheDuck", "donald@example.com", "URFired");
-        createEmployee(format.parse("11.03.1977"), ClassificationOfEmployeesEnum.MANAGER, "Kiskaty", "Uze", "kiskaty@example.com", "najprezident");
+        createEmployee(format.parse("25.08.1976"), ClassificationOfEmployeesEnum.CLEANING_SERVICE, "Kevin", "McCallister", "kevin@example.com", "kevo", "Kevko123");
+        createEmployee(format.parse("20.16.1990"), ClassificationOfEmployeesEnum.ENGINEER, "Zdeno", "Chara", "zdeno@example.com", "zedni", "zdenozpopradu");
+        createEmployee(format.parse("31.01.1985"), ClassificationOfEmployeesEnum.VOLUNTEER, "Donald", "TheDuck", "donald@example.com", "trumpo", "URFired");
+        createEmployee(format.parse("11.03.1977"), ClassificationOfEmployeesEnum.MANAGER, "Kiskaty", "Uze", "kiskaty@example.com", "adrejo", "najprezident");
     }
 
-    private void createEmployee(Date dateOfBirth, ClassificationOfEmployeesEnum classification, String firstname, String surname, String email, String pass) {
+    private void createEmployee(Date dateOfBirth, ClassificationOfEmployeesEnum classification, String firstname, String surname, String email, String login, String pass) {
         Employee employee = new Employee();
 
         employee.setBirthDate(dateOfBirth);
@@ -88,7 +88,7 @@ public class SampleDataLoaderFacadeImpl implements SampleDataLoaderFacade {
         employee.setFirstname(firstname);
         employee.setSurname(surname);
         employee.setEmail(email);
-        
+        employee.setLogin(login);
         // Setting admin role 
         if (pass.equals("najprezident"))
         {
@@ -99,7 +99,7 @@ public class SampleDataLoaderFacadeImpl implements SampleDataLoaderFacade {
             employee.setUserRole(UserRoleEnum.USER);
         }
         
-        employeeService.create(employee);
+        employeeService.create(employee, pass);
         employeeService.registerEmployee(employee, pass);
         employeeList.add(employee);
     }

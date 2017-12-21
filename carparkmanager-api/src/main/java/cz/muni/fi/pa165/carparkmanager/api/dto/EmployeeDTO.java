@@ -20,6 +20,11 @@ public class EmployeeDTO {
     private ClassificationOfEmployeesEnum classification;
     private String email;
     private UserRoleEnum userRole;
+    
+    private String login;
+
+    private String passwordHash;
+    
     @JsonBackReference
     private List<DriveDTO> driveList;
 
@@ -39,6 +44,22 @@ public class EmployeeDTO {
     
     public boolean isAdmin() {
         return userRole.equals(UserRoleEnum.ADMINISTRATOR);
+    }
+    
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+    
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public Long getId() {

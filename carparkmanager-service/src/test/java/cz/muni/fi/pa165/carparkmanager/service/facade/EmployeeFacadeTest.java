@@ -64,6 +64,7 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
         employee.setClassification(ClassificationOfEmployeesEnum.MANAGER);
         employee.setFirstname("John");
         employee.setSurname("Doe");
+        employee.setLogin("jonhny");
         employee.setId(new Long(1));
 
         employeeDTO = new EmployeeDTO();
@@ -77,14 +78,8 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void createService() {
-        employeeFacade.create(employeeDTO);
-        verify(employeeService).create(any(Employee.class));
-    }
-
-    @Test
-    public void updateTest() {
-        employeeFacade.update(employeeDTO);
-        verify(employeeService).update(any(Employee.class));
+        employeeFacade.create(employeeDTO, "MyPassword123");
+        verify(employeeService).create(any(Employee.class), any(String.class));
     }
 
     @Test
