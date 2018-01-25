@@ -35,12 +35,59 @@
                 <td><c:out value="${drive.getKm()}"/></td>
                 <td><c:out value="${drive.getCar().getVin()}"/></td>
                 <td><c:out value="${drive.getEmployee().getEmail()}"/></td>
+                <c:if test="${not empty authEmployee}">
+                    <td>
+                        <form method="post" action="${pageContext.request.contextPath}/drives/delete/${drive.getId()}">
+                            <button type="submit" class="btn btn-danger"><f:message key="delete"/></button>
+                        </form>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
     </tbody>
   </table>
   </div>
   
-  
+  <c:if test="${not empty authEmployee}">
+
+        <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/drives/create"> 
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="timeFrom">Time from:</label>
+                <div class="col-sm-10">
+                    <input type="timeFrom" class="form-control" id="timeFrom" placeholder="Enter time from">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="timeTo">Time to:</label>
+                <div class="col-sm-10">
+                    <input type="timeTo" class="form-control" id="timeTo" placeholder="Enter time to">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="km">Km:</label>
+                <div class="col-sm-10">
+                    <input type="km" class="form-control" id="km" placeholder="Enter km">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="car">Car:</label>
+                <div class="col-sm-10">
+                    <input type="car" class="form-control" id="car" placeholder="Enter car">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="employee">Employee:</label>
+                <div class="col-sm-10">
+                    <input type="employee" class="form-control" id="employee" placeholder="Enter employee">
+                </div>
+            </div>
+            <div class="form-group"> 
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-succes col-sm-12"><f:message key="create"/></button>
+                </div>
+            </div>
+        </form>
+
+    </c:if>
 </jsp:attribute>
 </my:pagetemplate>

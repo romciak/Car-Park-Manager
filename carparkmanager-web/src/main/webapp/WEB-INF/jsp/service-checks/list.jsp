@@ -35,12 +35,59 @@
                 <td><c:out value="${serviceCheck.isDone()}"/></td>
                 <td><c:out value="${serviceCheck.getDoneWhen()}"/></td>
                 <td><c:out value="${serviceCheck.getCar().getVin()}"/></td>
+                <c:if test="${not empty authEmployee}">
+                    <td>
+                        <form method="post" action="${pageContext.request.contextPath}/service-checks/delete/${serviceCheck.getId()}">
+                            <button type="submit" class="btn btn-danger"><f:message key="delete"/></button>
+                        </form>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
     </tbody>
   </table>
   </div>
 
+      <c:if test="${not empty authEmployee && authEmployee.isAdmin()}">
+
+        <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/service-checks/create"> 
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="intervalFrom">Interval from:</label>
+                <div class="col-sm-10">
+                    <input type="intervalFrom" class="form-control" id="intervalFrom" placeholder="Enter intervalFrom">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="intervalTo">Interval to:</label>
+                <div class="col-sm-10">
+                    <input type="intervalTo" class="form-control" id="intervalTo" placeholder="Enter intervalTo">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="done">Done:</label>
+                <div class="col-sm-10">
+                    <input type="done" class="form-control" id="done" placeholder="Enter done (true/false)">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="doneWhen">Done when:</label>
+                <div class="col-sm-10">
+                    <input type="doneWhen" class="form-control" id="doneWhen" placeholder="Enter done when">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="car">Car:</label>
+                <div class="col-sm-10">
+                    <input type="car" class="form-control" id="car" placeholder="Enter car">
+            </div>
+            <div class="form-group"> 
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-succes col-sm-12"><f:message key="create"/></button>
+                </div>
+            </div>
+        </form>
+
+    </c:if>
 
 </jsp:attribute>
 </my:pagetemplate>

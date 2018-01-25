@@ -7,12 +7,8 @@ import cz.muni.fi.pa165.carparkmanager.api.dto.EmployeeDTO;
 
 import cz.muni.fi.pa165.carparkmanager.api.facade.CarFacade;
 import cz.muni.fi.pa165.carparkmanager.api.facade.DriveFacade;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -125,7 +120,4 @@ public class CarController {
         redirectAttributes.addFlashAttribute("alert_success", "Trip was created");
         return CAR_LIST_REDIRECT;
     }
-    
-    // TODO create, update
-   
 }

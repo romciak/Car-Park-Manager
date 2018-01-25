@@ -35,11 +35,66 @@
                 <td><c:out value="${employee.getClassification()}"/></td>
                 <td><c:out value="${employee.getEmail()}"/></td>
                 <td><c:out value="${employee.getUserRole()}"/></td>
+                <c:if test="${not empty authEmployee && authEmployee.isAdmin()}">
+                    <td>
+                        <form method="post" action="${pageContext.request.contextPath}/employees/delete/${employee.getId()}">
+                            <button type="submit" class="btn btn-danger"><f:message key="delete"/></button>
+                        </form>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
     </tbody>
   </table>
   </div>
+      
+      <c:if test="${not empty authEmployee && authEmployee.isAdmin()}">
+
+        <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/employees/create"> 
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Name:</label>
+                <div class="col-sm-10">
+                    <input type="name" class="form-control" id="name" placeholder="Enter name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="surname">Surname:</label>
+                <div class="col-sm-10">
+                    <input type="surname" class="form-control" id="brand" placeholder="Enter surname">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="birthday">Birthday:</label>
+                <div class="col-sm-10">
+                    <input type="birthday" class="form-control" id="birthday" placeholder="Enter birthday">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="role">Role:</label>
+                <div class="col-sm-10">
+                    <input type="role" class="form-control" id="role" placeholder="Enter role (e.g. ADMINISTRATOR)">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Email:</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="classification">Classification</label>
+                <div class="col-sm-10">
+                    <input type="classification" class="form-control" id="classification" placeholder="Enter classification for employee">
+                </div>
+            </div>
+            <div class="form-group"> 
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-succes col-sm-12"><f:message key="create"/></button>
+                </div>
+            </div>
+        </form>
+
+    </c:if>
 
 
 </jsp:attribute>
